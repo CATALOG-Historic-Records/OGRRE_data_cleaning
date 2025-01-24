@@ -1,0 +1,49 @@
+Metadata-Version: 2.2
+Name: ogrre_data_cleaning
+Version: 0.1.0
+Summary: A package for cleaning OGRRE data
+Home-page: https://github.com/CATALOG-Historic-Records/OGRRE_data_cleaning
+Author: Benjamin Houghton
+Author-email: Benjamin.Houghton@netl.doe.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: torch>=2.0.0
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: requests
+Requires-Dist: tqdm
+Requires-Dist: pandas>=2.0.0
+Provides-Extra: test
+Requires-Dist: pytest>=7.0; extra == "test"
+Requires-Dist: pytest-cov>=4.0; extra == "test"
+
+# OGRRE Data Cleaning
+
+A Python package for cleaning OGRRE data.
+
+## Installation
+To install from source
+
+1. Clone the repository
+2. Navigate to the repository directory
+3. Run the following command:
+
+```bash
+pip install .
+```
+
+## Usage
+
+To use the package, import the functions you need from the `clean` module.
+
+```python
+from ogrre_data_cleaning import string_to_float, string_to_int, llm_clean
+```
+
+Note: Model checkpoints will be automatically downloaded when first using the `llm_clean` function.

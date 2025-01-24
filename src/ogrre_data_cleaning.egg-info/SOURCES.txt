@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/ogrre_data_cleaning/__init__.py
+src/ogrre_data_cleaning/clean.py
+src/ogrre_data_cleaning.egg-info/PKG-INFO
+src/ogrre_data_cleaning.egg-info/SOURCES.txt
+src/ogrre_data_cleaning.egg-info/dependency_links.txt
+src/ogrre_data_cleaning.egg-info/requires.txt
+src/ogrre_data_cleaning.egg-info/top_level.txt
+src/ogrre_data_cleaning/models/__init__.py
+src/ogrre_data_cleaning/models/checkpoints.py
+src/ogrre_data_cleaning/models/dataloaders.py
+src/ogrre_data_cleaning/models/encoder.py
+tests/test_clean.py
