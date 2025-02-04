@@ -1,13 +1,35 @@
 import re
 from pathlib import Path
-
+from datetime import datetime
 import torch
 import numpy as np
 
-from .models.encoder import Encoder, Classifier
-from .models import dataloaders
-from .models.checkpoints import get_checkpoint_path
+from ogrre_data_cleaning.models.encoder import Encoder, Classifier
+from ogrre_data_cleaning.models.dataloaders import HoleSize
+from ogrre_data_cleaning.models.checkpoints import get_checkpoint_path
 
+def string_to_date(s: str):
+    """
+    Converts a string to a date after removing non-date characters.
+    """
+    if not isinstance(s, str):
+        return None
+    
+    # Use regex to keep only valid date characters
+    cleaned_string = re.sub(r"[^\d-]+", "", s)
+    
+    # Handle edge cases like empty strings or invalid formats
+    try:
+        # Try various date formats
+        date = datetime.strptime(cleaned_string, '%Y-%m-%d')
+        if date:
+            return date
+        date = datetime.strptime(cleaned_string, '%m-%d-%Y')
+        if date:
+            return date
+        date = datetime.strptime(cleaned_string, '%m/%d/%Y')
+    except ValueError:
+        return None
 
 def string_to_float(s: str):
     """
@@ -107,7 +129,7 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     model_classifier.load_state_dict(checkpoint['model_state_dict'])
 
     # Encode the input
-    dataset = dataloaders.HoleSize(
+    dataset = HoleSize(
         None, labels, max_length=data_parameters['sequence_size']
         )
     
@@ -121,7 +143,172 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     
     return dataset.classes[y_pred]
 
+def clean_date(date_str: str) -> datetime | None:
+    """
+    Clean and standardize date strings into datetime objects.
+    
+    Args:
+        date_str: String containing a date
+        
+    Returns:
+        datetime object if successful, None if invalid date
+    """
+    if not date_str or date_str in ['N/A', 'illegible', '-', 'BEFORE', 'SAME AS BEFORE']:
+        return None
+        
+    # Remove any extra whitespace
+    date_str = date_str.strip()
+    
+    # List of formats to try, in order of most to least common
+    formats = [
+        '%Y/%m/%d',           # 2020/8/1
+        '%Y-%m-%d',           # 1973-02-29
+        '%m/%d/%Y',           # 7/30/1971
+        '%m/%d/%y',           # 11/29/54
+        '%m-%d-%Y',           # 10-17-1983
+        '%d-%b-%y',           # 29-Jul-71
+        '%b %d, %Y',          # March 30. 1963
+        '%B %d,%Y',           # April 28,1958
+        '%b. %d, %Y',         # Sept. 11, 1957
+        '%d/%m/%Y',           # 17/18/95 (ambiguous, assumes DD/MM/YYYY)
+        '%Y'                  # 1949
+    ]
+    
+    # Clean up some common variations
+    date_str = re.sub(r'\.(?=\s|$)', '', date_str)  # Remove trailing periods
+    date_str = re.sub(r'\s+', ' ', date_str)        # Normalize spaces
+    
+    # Try each format
+    for fmt in formats:
+        try:
+            date = datetime.strptime(date_str, fmt).date()
+            # Convert to common format
+            date = date.strftime('%m/%d/%Y')
+            return date
+        except ValueError:
+            continue
+            
+    # Handle special cases
+    if re.match(r'^\d{3,4}$', date_str):  # Handle year-only entries
+        try:
+            year = int(date_str)
+            if 1900 <= year <= 2100:  # Reasonable year range
+                return datetime(year, 1, 1)
+        except ValueError:
+            pass
+            
+    return None
+
+
+def convert_hole_size_to_decimal(size_str: str) -> float:
+    """
+    Converts oil/gas well hole size strings to decimal values.
+    
+    Common valid hole sizes are in 1/8 inch increments. Based on the dataset,
+    the following fractions are allowed:
+    
+    Eighths (most common):
+    - 1/8, 3/8, 5/8, 7/8
+    
+    Quarters:
+    - 1/4, 3/4
+    
+    Halves:
+    - 1/2
+    
+    Args:
+        size_str: String containing the hole size (e.g. "8 3/4", "7-7/8", "13 3/8")
+        
+    Returns:
+        Float decimal equivalent of the hole size
+        
+    Raises:
+        ValueError: If the input string cannot be parsed or contains invalid fractions
+    """
+    # Strip whitespace and quotes
+    size_str = size_str.strip().strip('"').strip("'")
+    
+    # Handle pure decimal inputs
+    try:
+        return float(size_str)
+    except ValueError:
+        pass
+        
+    # Remove common separators
+    size_str = size_str.replace('-', ' ').replace('/', ' ')
+    
+    # Split into whole and fractional parts
+    parts = size_str.split()
+    
+    # Get the whole number
+    try:
+        whole = float(parts[0])
+    except ValueError:
+        raise ValueError(f"Invalid whole number: {parts[0]}")
+        
+    # If no fraction, return whole number
+    if len(parts) == 1:
+        return whole
+        
+    # Handle fraction part
+    if len(parts) != 3:
+        raise ValueError(f"Invalid fraction format: {size_str}")
+        
+    try:
+        numerator = int(parts[1])
+        denominator = int(parts[2])
+    except ValueError:
+        raise ValueError(f"Invalid fraction numbers: {parts[1]}/{parts[2]}")
+        
+    # Validate allowed fractions
+    valid_fractions = {
+        # Eighths
+        (1,8): 0.125,
+        (3,8): 0.375,
+        (5,8): 0.625,
+        (7,8): 0.875,
+        
+        # Quarters  
+        (1,4): 0.25,
+        (3,4): 0.75,
+        
+        # Halves
+        (1,2): 0.5
+    }
+    
+    fraction_tuple = (numerator, denominator)
+    if fraction_tuple not in valid_fractions:
+        raise ValueError(f"Invalid or uncommon fraction: {numerator}/{denominator}")
+        
+    return whole + valid_fractions[fraction_tuple]
+
 
 if __name__ == '__main__':
+
+
+    # LLM hole size cleaning
     pred = llm_clean('12-1/4')
     print('Cleaned hole size: {}'.format(pred))
+
+    # Date cleaning
+    date = clean_date('6/25/1971')
+    print('Cleaned date: {}'.format(date))
+
+    date = clean_date('25/10/1971')
+    print('Cleaned date: {}'.format(date))
+
+    date = clean_date('2020/8/1')
+    print('Cleaned date: {}'.format(date))
+
+    date = clean_date('April 28,1958')
+    print('Cleaned date: {}'.format(date))
+    
+    # Hole size cleaning
+    hole_size = convert_hole_size_to_decimal("8 3/4") # 8.75
+    print('Hole size: {}'.format(hole_size))
+
+    hole_size = convert_hole_size_to_decimal("7-7/8") # 7.875
+    print('Hole size: {}'.format(hole_size))
+
+    hole_size = convert_hole_size_to_decimal("13 3/8") # 13.375
+    print('Hole size: {}'.format(hole_size))

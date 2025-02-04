@@ -1,12 +1,28 @@
 import re
 from pathlib import Path
-
+from datetime import datetime
 import torch
 import numpy as np
 
-from .models.encoder import Encoder, Classifier
-from .models import dataloaders
-from .models.checkpoints import get_checkpoint_path
+from ogrre_data_cleaning.models.encoder import Encoder, Classifier
+from ogrre_data_cleaning.models.dataloaders import HoleSize
+from ogrre_data_cleaning.models.checkpoints import get_checkpoint_path
+
+def string_to_date(s: str):
+    """
+    Converts a string to a date after removing non-date characters.
+    """
+    if not isinstance(s, str):
+        return None
+    
+    # Use regex to keep only valid date characters
+    cleaned_string = re.sub(r"[^\d-]+", "", s)
+    
+    # Handle edge cases like empty strings or invalid formats
+    try:
+        return datetime.strptime(cleaned_string, '%Y-%m-%d')
+    except ValueError:
+        return None
 
 
 def string_to_float(s: str):
@@ -107,7 +123,7 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     model_classifier.load_state_dict(checkpoint['model_state_dict'])
 
     # Encode the input
-    dataset = dataloaders.HoleSize(
+    dataset = HoleSize(
         None, labels, max_length=data_parameters['sequence_size']
         )
     
@@ -125,3 +141,6 @@ def llm_clean(s, model_name='holesize', model_version='0'):
 if __name__ == '__main__':
     pred = llm_clean('12-1/4')
     print('Cleaned hole size: {}'.format(pred))
+
+    date = string_to_date('6/25/1971')
+    print('Cleaned date: {}'.format(date))
