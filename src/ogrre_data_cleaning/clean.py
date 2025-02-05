@@ -199,6 +199,31 @@ def clean_date(date_str: str) -> datetime | None:
             
     return None
 
+def clean_bool(checkbox_str: str):
+    '''
+    check if string is valid representation of boolean
+    
+    args:
+        checkbox_str: string of checkbox field
+    returns:
+        boolean if successful or the string itself if unknown
+    '''
+    try:
+        checkbox_str = checkbox_str.strip().upper()
+        if (checkbox_str == 'X') or (checkbox_str == 'YES'):
+            return True
+        elif (checkbox_str == '') or (checkbox_str == 'NO'):
+            return False
+        elif len(checkbox_str) == 1: #check box symbol
+            if ord(checkbox_str) == 9745:
+                return True
+            elif ord(checkbox_str) == 9744:
+                return False
+        else:
+            print(checkbox_str,'is a unknown checkbox')
+            return None
+    except AttributeError:
+        print(checkbox_str,'not a string')
 
 def convert_hole_size_to_decimal(size_str: str) -> float:
     """
@@ -302,6 +327,15 @@ if __name__ == '__main__':
 
     date = clean_date('April 28,1958')
     print('Cleaned date: {}'.format(date))
+    
+    checkbox = clean_bool(' yes ')
+    print(checkbox)
+    
+    checkbox = clean_bool('test')
+    print(checkbox)
+    
+    checkbox = clean_bool(None)
+    print(checkbox)
     
     # Hole size cleaning
     hole_size = convert_hole_size_to_decimal("8 3/4") # 8.75
