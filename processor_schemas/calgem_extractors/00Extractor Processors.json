@@ -1,0 +1,15 @@
+[
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "CA_Ver_A_WellSummary",
+        "Model Name": "T6",
+        "F1 Score": 0.9,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 316.0,
+        "Testing Documents": 110,
+        "Date Trained": 1741046400000,
+        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31",
+        "Processor ID": "d4799bdc19309e2d",
+        "Model ID": "482c21c99c1260e9"
+    }
+]
