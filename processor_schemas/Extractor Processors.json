@@ -8,7 +8,9 @@
         "Training Documents": 114.0,
         "Testing Documents": 56.0,
         "Date Trained": 1739404800000,
-        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10"
+        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10",
+        "Processor ID": "dea734185d2763e7",
+        "Model ID": "1b50f01077d4e377"
     },
     {
         "Processor Type": "Extractor",
@@ -19,7 +21,9 @@
         "Training Documents": 58.0,
         "Testing Documents": 52.0,
         "Date Trained": 1739145600000,
-        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10"
+        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10",
+        "Processor ID": "66b6b0b6a6db9039",
+        "Model ID": "b9eece12ec902522"
     },
     {
         "Processor Type": "Extractor",
@@ -30,7 +34,9 @@
         "Training Documents": 139.0,
         "Testing Documents": 113.0,
         "Date Trained": 1738713600000,
-        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31"
+        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31",
+        "Processor ID": "b0cd461b8a51afca",
+        "Model ID": "d4784a347f422353"
     },
     {
         "Processor Type": "Extractor",
@@ -41,7 +47,9 @@
         "Training Documents": 42.0,
         "Testing Documents": 25.0,
         "Date Trained": 1728518400000,
-        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10"
+        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10",
+        "Processor ID": "ba1b9b209092eae4",
+        "Model ID": "30ce66251138201d"
     },
     {
         "Processor Type": "Extractor",
@@ -52,7 +60,9 @@
         "Training Documents": 100.0,
         "Testing Documents": 84.0,
         "Date Trained": 1735776000000,
-        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31"
+        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31",
+        "Processor ID": "e60bb28febe63e5e",
+        "Model ID": "c15d0c9442575dc6"
     },
     {
         "Processor Type": "Extractor",
@@ -63,7 +73,9 @@
         "Training Documents": 100.0,
         "Testing Documents": 53.0,
         "Date Trained": 1739404800000,
-        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10"
+        "Foundation Model": "pretrained-foundation-model-v1.2-2024-05-10",
+        "Processor ID": "f00c66bab4fa8d38",
+        "Model ID": "1131928e2ae71aa6"
     },
     {
         "Processor Type": "Extractor",
@@ -74,7 +86,9 @@
         "Training Documents": 17.0,
         "Testing Documents": 17.0,
         "Date Trained": 1721174400000,
-        "Foundation Model": "Custom"
+        "Foundation Model": "Custom",
+        "Processor ID": "50fd0b3ab811a3d1",
+        "Model ID": "247364567a668f25"
     },
     {
         "Processor Type": "Extractor",
@@ -85,7 +99,9 @@
         "Training Documents": 17.0,
         "Testing Documents": 23.0,
         "Date Trained": 1721260800000,
-        "Foundation Model": "Custom"
+        "Foundation Model": "Custom",
+        "Processor ID": "dacfda98cad81d02",
+        "Model ID": "83be442ddeb5d44b"
     },
     {
         "Processor Type": "Extractor",
@@ -96,6 +112,8 @@
         "Training Documents": 70.0,
         "Testing Documents": 47.0,
         "Date Trained": 1716854400000,
-        "Foundation Model": "Custom"
+        "Foundation Model": "Custom",
+        "Processor ID": "d97318f7eea17aca",
+        "Model ID": "6053dea175880329"
     }
 ]
