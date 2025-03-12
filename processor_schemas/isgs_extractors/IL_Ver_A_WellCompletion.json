@@ -645,7 +645,7 @@
         "occurrence": "Optional multiple",
         "grouping": null,
         "database_data_type": "float",
-        "cleaning_function": "string_to_float",
+        "cleaning_function": "convert_hole_size_to_decimal",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": null
