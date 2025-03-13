@@ -12,6 +12,10 @@ def string_to_date(s: str):
     """
     Converts a string to a date after removing non-date characters.
     """
+    # If input is already a datetime object, return it
+    if isinstance(s, datetime):
+        return s
+        
     if not isinstance(s, str):
         return None
     
@@ -42,6 +46,10 @@ def string_to_float(s: str):
         float: The converted float value.
         None: If the conversion fails or no valid number can be extracted.
     """
+    # If input is already a float, return it
+    if isinstance(s, float):
+        return s
+        
     if not isinstance(s, str):
         return None
     
@@ -65,6 +73,10 @@ def string_to_int(s: str):
         int: The converted integer value.
         None: If the conversion fails or no valid number can be extracted.
     """
+    # If input is already an int, return it
+    if isinstance(s, int):
+        return s
+        
     if not isinstance(s, str):
         return None
     
@@ -88,8 +100,11 @@ def llm_clean(s, model_name='holesize', model_version='0'):
         model_version (str): Version of the model to use.
         
     Returns:
-        pred: The cleaned output from the model.
+        pred (float): The cleaned output from the model.
     """
+    # If input is already a cleaned value (assuming it's a string), return it
+    if not isinstance(s, float):
+        return s
     
     # Check devices
     device = 'cpu'
@@ -153,6 +168,10 @@ def clean_date(date_str: str) -> datetime | None:
     Returns:
         datetime object if successful, None if invalid date
     """
+    # If input is already a datetime object, return it
+    if isinstance(date_str, datetime):
+        return date_str
+        
     if not date_str or date_str in ['N/A', 'illegible', '-', 'BEFORE', 'SAME AS BEFORE']:
         return None
         
@@ -166,6 +185,7 @@ def clean_date(date_str: str) -> datetime | None:
         '%m/%d/%Y',           # 7/30/1971
         '%m/%d/%y',           # 11/29/54
         '%m-%d-%Y',           # 10-17-1983
+        '%m-%d-%y',           # 5-27-66
         '%d-%b-%y',           # 29-Jul-71
         '%b %d, %Y',          # March 30. 1963
         '%B %d,%Y',           # April 28,1958
@@ -181,10 +201,18 @@ def clean_date(date_str: str) -> datetime | None:
     # Try each format
     for fmt in formats:
         try:
-            date = datetime.strptime(date_str, fmt).date()
+            date = datetime.strptime(date_str, fmt)
+            
+            # Handle two-digit years - assume years > 50 are in the 1900s, <= 50 are in the 2000s
+            if fmt.endswith('%y'):
+                year = date.year
+                if year >= 2050:  # If year is 2050 or later (from parsing '50' to '99')
+                    # Adjust to 1950-1999
+                    date = date.replace(year=year-100)
+            
             # Convert to common format
-            date = date.strftime('%m/%d/%Y')
-            return date
+            date_str = date.strftime('%m/%d/%Y')
+            return date_str
         except ValueError:
             continue
             
@@ -193,7 +221,7 @@ def clean_date(date_str: str) -> datetime | None:
         try:
             year = int(date_str)
             if 1900 <= year <= 2100:  # Reasonable year range
-                return datetime(year, 1, 1)
+                return datetime(year, 1, 1).strftime('%m/%d/%Y')
         except ValueError:
             pass
             
@@ -206,24 +234,39 @@ def clean_bool(checkbox_str: str):
     args:
         checkbox_str: string of checkbox field
     returns:
-        boolean if successful or the string itself if unknown
+        boolean: True if the input represents a positive/checked value, False otherwise
     '''
+    # If input is already a boolean, return it
+    if isinstance(checkbox_str, bool):
+        return checkbox_str
+        
+    # If input is None or empty, return False
+    if checkbox_str is None or (isinstance(checkbox_str, str) and not checkbox_str.strip()):
+        return False
+        
     try:
+        # Normalize the string
         checkbox_str = checkbox_str.strip().upper()
-        if (checkbox_str == 'X') or (checkbox_str == 'YES'):
+        
+        # Values that should be interpreted as True
+        true_values = ['X', 'YES', 'TRUE', 'T', 'Y', '1']
+        
+        # Check for True values
+        if checkbox_str in true_values:
             return True
-        elif (checkbox_str == '') or (checkbox_str == 'NO'):
-            return False
-        elif len(checkbox_str) == 1: #check box symbol
-            if ord(checkbox_str) == 9745:
+        
+        # Check for checkbox symbols
+        if len(checkbox_str) == 1:
+            if ord(checkbox_str) == 9745:  # Checked box symbol
                 return True
-            elif ord(checkbox_str) == 9744:
+            elif ord(checkbox_str) == 9744:  # Unchecked box symbol
                 return False
-        else:
-            print(checkbox_str,'is a unknown checkbox')
-            return None
+        
+        # All other values are considered False
+        return False
     except AttributeError:
-        print(checkbox_str,'not a string')
+        # If it's not a string and not a boolean, return False
+        return False
 
 def convert_hole_size_to_decimal(size_str: str) -> float:
     """
@@ -245,11 +288,19 @@ def convert_hole_size_to_decimal(size_str: str) -> float:
         size_str: String containing the hole size (e.g. "8 3/4", "7-7/8", "13 3/8")
         
     Returns:
-        Float decimal equivalent of the hole size
+        Float decimal equivalent of the hole size or None if empty string
         
     Raises:
         ValueError: If the input string cannot be parsed or contains invalid fractions
     """
+    # If input is already a float, return it
+    if isinstance(size_str, float):
+        return size_str
+        
+    # Check for empty string
+    if not size_str or size_str.strip() == "":
+        return None
+        
     # Strip whitespace and quotes
     size_str = size_str.strip().strip('"').strip("'")
     
@@ -310,39 +361,154 @@ def convert_hole_size_to_decimal(size_str: str) -> float:
 
 if __name__ == '__main__':
 
-
     # LLM hole size cleaning
-    pred = llm_clean('12-1/4')
-    print('Cleaned hole size: {}'.format(pred))
+    input = '12-1/4'
+    pred = llm_clean(input)
+    print('Input: {}'.format(input))
+    print('Cleaned hole size: {}\n'.format(pred))
 
     # Date cleaning
-    date = clean_date('6/25/1971')
-    print('Cleaned date: {}'.format(date))
+    input = '6/25/1971'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date: {}\n'.format(date))
 
-    date = clean_date('25/10/1971')
-    print('Cleaned date: {}'.format(date))
+    input = '25/10/1971'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date: {}\n'.format(date))
 
-    date = clean_date('2020/8/1')
-    print('Cleaned date: {}'.format(date))
+    input = '2020/8/1'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date: {}\n'.format(date))
 
-    date = clean_date('April 28,1958')
-    print('Cleaned date: {}'.format(date))
+    input = 'April 28,1958'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date: {}\n'.format(date))
     
-    checkbox = clean_bool(' yes ')
-    print(checkbox)
+    # Test the new m-dd-yy format
+    input = '5-27-66'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date (m-dd-yy format): {}\n'.format(date))
     
-    checkbox = clean_bool('test')
-    print(checkbox)
+    # Test more two-digit year formats
+    input = '11/29/54'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date (two-digit year 50s): {}\n'.format(date))
     
-    checkbox = clean_bool(None)
-    print(checkbox)
+    input = '3-15-22'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date (two-digit year 20s): {}\n'.format(date))
+    
+    input = '7/4/99'
+    date = clean_date(input)
+    print('Input: {}'.format(input))
+    print('Cleaned date (two-digit year 90s): {}\n'.format(date))
+    
+    # Boolean cleaning
+    input = ' yes '
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = 'true'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = 't'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = 'y'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = '1'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = 'no'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = 'test'
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = None
+    checkbox = clean_bool(input)
+    print('Input: {}'.format(input))
+    print('Cleaned boolean: {}\n'.format(checkbox))
+    
+    input = ''
+    checkbox = clean_bool(input)
+    print('Input: empty string')
+    print('Cleaned boolean: {}\n'.format(checkbox))
     
     # Hole size cleaning
-    hole_size = convert_hole_size_to_decimal("8 3/4") # 8.75
-    print('Hole size: {}'.format(hole_size))
+    input = "8 3/4"
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
 
-    hole_size = convert_hole_size_to_decimal("7-7/8") # 7.875
-    print('Hole size: {}'.format(hole_size))
+    input = "7-7/8"
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
 
-    hole_size = convert_hole_size_to_decimal("13 3/8") # 13.375
-    print('Hole size: {}'.format(hole_size))
+    input = "13 3/8"
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+
+    input = None
+    hole_size = convert_hole_size_to_decimal(input)
+    # Test with empty string
+    input = ""
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: empty string')
+    print('Hole size: {}\n'.format(hole_size))
+    
+    # Test cases for handling inputs that are already in the target data type
+    print("Testing functions with inputs already in target data type:\n")
+    
+    # Test string_to_float with float input
+    float_val = 123.45
+    result = string_to_float(float_val)
+    print(f"Input: {float_val} (float)")
+    print(f"string_to_float result: {result}, same object: {result is float_val}\n")
+    
+    # Test string_to_int with int input
+    int_val = 42
+    result = string_to_int(int_val)
+    print(f"Input: {int_val} (int)")
+    print(f"string_to_int result: {result}, same object: {result is int_val}\n")
+    
+    # Test clean_date with datetime input
+    date_val = datetime.now()
+    result = clean_date(date_val)
+    print(f"Input: {date_val} (datetime)")
+    print(f"clean_date result: {result}, same object: {result is date_val}\n")
+    
+    # Test clean_bool with boolean input
+    bool_val = True
+    result = clean_bool(bool_val)
+    print(f"Input: {bool_val} (boolean)")
+    print(f"clean_bool result: {result}, same object: {result is bool_val}\n")
+    
+    # Test convert_hole_size_to_decimal with float input
+    float_val = 8.75
+    result = convert_hole_size_to_decimal(float_val)
+    print(f"Input: {float_val} (float)")
+    print(f"convert_hole_size_to_decimal result: {result}, same object: {result is float_val}\n")
