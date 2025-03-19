@@ -56,14 +56,4 @@ def get_processor_by_name(collaborator: str = "isgs", processor_name: str = None
         print(f"unable to find attributes for {collaborator} named: {processor_name}")
 
     return processor_data
-
-def get_processor_image(collaborator: str, processor_name: str):
-    if processor_name is None:
-        return None
-    try:
-        with importlib.resources.open_text(__package__+f".{collaborator}_extractors.images", f"{processor_name}.png") as f:
-            return f.read()
-    except Exception as e:
-        print(f"unable to find processor images for {collaborator} : {processor_name}")
-        return None
     
