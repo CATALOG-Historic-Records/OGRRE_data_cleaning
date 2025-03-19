@@ -1,7 +1,20 @@
+"""
+Created on Tue Mar 18 2025
+
+@author: MichaelPesce
+"""
 import importlib.resources
 import json
 
 def get_processor_list(collaborator: str):
+    """Get list of processors for a given collaborator.
+
+        Args:
+            collaborator: eg. isgs
+
+        Returns:
+            List of processors or None
+    """
     try:
         with importlib.resources.open_text(__package__+f".{collaborator}_extractors", "00Extractor Processors.json") as f:
             return json.load(f)
@@ -10,6 +23,15 @@ def get_processor_list(collaborator: str):
         return None
     
 def get_processor_by_id(collaborator: str, processor_id: str):
+    """Get processor data for given processor id.
+
+        Args:
+            collaborator: str = isgs
+            processor_id: str
+
+        Returns:
+            Dict containing processor data, attributes or None
+    """
     if not processor_id:
         return None
 
@@ -35,6 +57,15 @@ def get_processor_by_id(collaborator: str, processor_id: str):
     return processor_data
 
 def get_processor_by_name(collaborator: str = "isgs", processor_name: str = None):
+    """Get processor data for given processor name.
+
+        Args:
+            collaborator: str = isgs
+            processor_name: str
+
+        Returns:
+            Dict containing processor data, attributes or None
+    """
     if not processor_name:
         return None
 
