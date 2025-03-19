@@ -13,7 +13,7 @@ def get_processor_by_id(collaborator: str, processor_id: str):
     if not processor_id:
         return None
 
-    extractor_data = get_processor_list()
+    extractor_data = get_processor_list(collaborator)
 
     processor_data = None
     for extractor in extractor_data:
@@ -38,7 +38,7 @@ def get_processor_by_name(collaborator: str = "isgs", processor_name: str = None
     if not processor_name:
         return None
 
-    extractor_data = get_processor_list()
+    extractor_data = get_processor_list(collaborator)
 
     processor_data = None
     for extractor in extractor_data:
