@@ -13,4 +13,18 @@ src/ogrre_data_cleaning/models/__init__.py
 src/ogrre_data_cleaning/models/checkpoints.py
 src/ogrre_data_cleaning/models/dataloaders.py
 src/ogrre_data_cleaning/models/encoder.py
+src/ogrre_data_cleaning/processor_schemas/__init__.py
+src/ogrre_data_cleaning/processor_schemas/excel_to_json.py
+src/ogrre_data_cleaning/processor_schemas/processor_api.py
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/00Extractor Processors.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_InspectorCasingCement_B.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_A_PluggingReport.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_A_WellCompletion.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_B_PluggingReport.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_B_Well_Completion.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_C_PluggingReport.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_WellCompletion_F.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_WellCompletion_G.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/Illinois_Well_Drilling.json
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/__init__.py
 tests/test_clean.py
