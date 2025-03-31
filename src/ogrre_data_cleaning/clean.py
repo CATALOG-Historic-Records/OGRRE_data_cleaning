@@ -249,19 +249,31 @@ def clean_bool(checkbox_str: str):
         checkbox_str = checkbox_str.strip().upper()
         
         # Values that should be interpreted as True
-        true_values = ['X', 'YES', 'TRUE', 'T', 'Y', '1']
-        
-        # Check for True values
-        if checkbox_str in true_values:
-            return True
-        
-        # Check for checkbox symbols
+        true_values = ['X', 'YES', 'TRUE', 'T', 'Y', '1', '\u2611']
+
+        # Evaluate length 1 string
         if len(checkbox_str) == 1:
+            # Check for True values
+            if checkbox_str in true_values:
+                return True
+            
+            # Check for checkbox symbols       
             if ord(checkbox_str) == 9745:  # Checked box symbol
                 return True
             elif ord(checkbox_str) == 9744:  # Unchecked box symbol
                 return False
-        
+
+        # Evaluate length > 1 strings
+        else:
+            # Check for True values
+            for true_char in true_values:
+                if true_char in checkbox_str:
+                    return True
+            # Check for checkbox symbols
+            for box_char in checkbox_str:
+                if ord(box_char) == 9745:
+                    return True
+             
         # All other values are considered False
         return False
     except AttributeError:
