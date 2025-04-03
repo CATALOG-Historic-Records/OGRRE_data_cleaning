@@ -63,8 +63,15 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
     for processor in Extractors["Processor Name"]:
         processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
         write_json(Dataframe =  processor_df, Filepath = f"{Organization}_extractors/{processor}.json", key_replacements=key_replacements)
-        
+    
+    try:
+        Obsolete_df = pd.read_excel(excel_file_path, sheet_name="ObsoleteFields")
+        write_json(Dataframe =  Obsolete_df, Filepath = f"{Organization}_extractors/01Obsolete Fields.json", key_replacements=key_replacements)
+    except:
+        pass
         
 if __name__ == '__main__':
     Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False)
     Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False)
+    
+    
