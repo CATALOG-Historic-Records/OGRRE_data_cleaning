@@ -1,6 +1,9 @@
 [
     {
         "V1 Fscores": 0.788,
+        "T1 Fscores": 0.667,
+        "T2 Fscores": 0.69,
+        "T3 Fscores": 0.727,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 1,
@@ -16,6 +19,9 @@
     },
     {
         "V1 Fscores": 0.938,
+        "T1 Fscores": 0.813,
+        "T2 Fscores": 0.903,
+        "T3 Fscores": 0.882,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 2,
@@ -31,6 +37,9 @@
     },
     {
         "V1 Fscores": 0.97,
+        "T1 Fscores": 0.941,
+        "T2 Fscores": 0.941,
+        "T3 Fscores": 0.941,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 3,
@@ -46,6 +55,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 4,
@@ -61,6 +73,9 @@
     },
     {
         "V1 Fscores": 0.938,
+        "T1 Fscores": 0.875,
+        "T2 Fscores": 0.909,
+        "T3 Fscores": 0.909,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 5,
@@ -76,6 +91,9 @@
     },
     {
         "V1 Fscores": 0.97,
+        "T1 Fscores": 1.0,
+        "T2 Fscores": 1.0,
+        "T3 Fscores": 1.0,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 6,
@@ -91,6 +109,9 @@
     },
     {
         "V1 Fscores": 0.97,
+        "T1 Fscores": 0.882,
+        "T2 Fscores": 0.882,
+        "T3 Fscores": 0.941,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 7,
@@ -106,6 +127,9 @@
     },
     {
         "V1 Fscores": 0.938,
+        "T1 Fscores": 1.0,
+        "T2 Fscores": 0.848,
+        "T3 Fscores": 0.941,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 8,
@@ -121,6 +145,9 @@
     },
     {
         "V1 Fscores": 0.786,
+        "T1 Fscores": 0.97,
+        "T2 Fscores": 0.941,
+        "T3 Fscores": 1.0,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 9,
@@ -136,6 +163,9 @@
     },
     {
         "V1 Fscores": 0.786,
+        "T1 Fscores": 0.941,
+        "T2 Fscores": 0.882,
+        "T3 Fscores": 1.0,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 10,
@@ -151,6 +181,9 @@
     },
     {
         "V1 Fscores": 0.97,
+        "T1 Fscores": 0.938,
+        "T2 Fscores": 0.882,
+        "T3 Fscores": 0.941,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 11,
@@ -166,6 +199,9 @@
     },
     {
         "V1 Fscores": 0.938,
+        "T1 Fscores": 0.875,
+        "T2 Fscores": 0.848,
+        "T3 Fscores": 0.941,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 12,
@@ -181,6 +217,9 @@
     },
     {
         "V1 Fscores": 0.897,
+        "T1 Fscores": 0.938,
+        "T2 Fscores": 0.897,
+        "T3 Fscores": 1.0,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 13,
@@ -196,6 +235,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 14,
@@ -211,6 +253,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 15,
@@ -226,6 +271,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 16,
@@ -241,6 +289,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 17,
@@ -256,6 +307,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 18,
@@ -271,6 +325,9 @@
     },
     {
         "V1 Fscores": 1.0,
+        "T1 Fscores": 1.0,
+        "T2 Fscores": 0.968,
+        "T3 Fscores": 1.0,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 19,
@@ -286,6 +343,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 20,
@@ -301,6 +361,9 @@
     },
     {
         "V1 Fscores": 0.897,
+        "T1 Fscores": 0.774,
+        "T2 Fscores": 0.8,
+        "T3 Fscores": 0.8,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 21,
@@ -316,6 +379,9 @@
     },
     {
         "V1 Fscores": 0.848,
+        "T1 Fscores": 0.774,
+        "T2 Fscores": 0.733,
+        "T3 Fscores": 0.882,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 22,
@@ -331,6 +397,9 @@
     },
     {
         "V1 Fscores": 1.0,
+        "T1 Fscores": 0.923,
+        "T2 Fscores": 0.923,
+        "T3 Fscores": 0.923,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 23,
@@ -346,6 +415,9 @@
     },
     {
         "V1 Fscores": 1.0,
+        "T1 Fscores": 0.727,
+        "T2 Fscores": 0.8,
+        "T3 Fscores": 0.957,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 24,
@@ -361,6 +433,9 @@
     },
     {
         "V1 Fscores": 0.525,
+        "T1 Fscores": 0.339,
+        "T2 Fscores": 0.267,
+        "T3 Fscores": 0.513,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 25,
@@ -376,6 +451,9 @@
     },
     {
         "V1 Fscores": 0.524,
+        "T1 Fscores": 0.358,
+        "T2 Fscores": 0.308,
+        "T3 Fscores": 0.489,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 26,
@@ -391,6 +469,9 @@
     },
     {
         "V1 Fscores": 0.75,
+        "T1 Fscores": 0.437,
+        "T2 Fscores": 0.241,
+        "T3 Fscores": 0.524,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 27,
@@ -406,6 +487,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 28,
@@ -421,6 +505,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 29,
@@ -436,6 +523,9 @@
     },
     {
         "V1 Fscores": 0.314,
+        "T1 Fscores": 0.187,
+        "T2 Fscores": 0.229,
+        "T3 Fscores": 0.318,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 30,
@@ -451,6 +541,9 @@
     },
     {
         "V1 Fscores": 0.747,
+        "T1 Fscores": 0.356,
+        "T2 Fscores": 0.347,
+        "T3 Fscores": 0.729,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 31,
@@ -466,6 +559,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 32,
@@ -481,6 +577,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 33,
@@ -496,6 +595,9 @@
     },
     {
         "V1 Fscores": 0.6,
+        "T1 Fscores": 0.443,
+        "T2 Fscores": 0.44,
+        "T3 Fscores": 0.618,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 34,
@@ -511,6 +613,9 @@
     },
     {
         "V1 Fscores": 0.6,
+        "T1 Fscores": 0.389,
+        "T2 Fscores": 0.371,
+        "T3 Fscores": 0.43,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 35,
@@ -526,6 +631,9 @@
     },
     {
         "V1 Fscores": 0.608,
+        "T1 Fscores": 0.5,
+        "T2 Fscores": 0.528,
+        "T3 Fscores": 0.822,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 36,
@@ -541,6 +649,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 37,
@@ -556,6 +667,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 38,
@@ -571,6 +685,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 39,
@@ -586,6 +703,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 40,
@@ -601,6 +721,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 41,
@@ -616,6 +739,9 @@
     },
     {
         "V1 Fscores": 0.563,
+        "T1 Fscores": 0.66,
+        "T2 Fscores": 0.497,
+        "T3 Fscores": 0.721,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 42,
@@ -631,6 +757,9 @@
     },
     {
         "V1 Fscores": 0.103,
+        "T1 Fscores": 0.609,
+        "T2 Fscores": 0.494,
+        "T3 Fscores": 0.655,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 43,
@@ -646,6 +775,9 @@
     },
     {
         "V1 Fscores": 0.806,
+        "T1 Fscores": 0.702,
+        "T2 Fscores": 0.5,
+        "T3 Fscores": 0.781,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 44,
@@ -661,6 +793,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 45,
@@ -676,6 +811,9 @@
     },
     {
         "V1 Fscores": 0.88,
+        "T1 Fscores": 0.6,
+        "T2 Fscores": 0.55,
+        "T3 Fscores": 0.791,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 46,
@@ -691,6 +829,9 @@
     },
     {
         "V1 Fscores": 0.942,
+        "T1 Fscores": 0.735,
+        "T2 Fscores": 0.707,
+        "T3 Fscores": 0.888,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 47,
@@ -706,6 +847,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 48,
@@ -721,6 +865,9 @@
     },
     {
         "V1 Fscores": 0.56,
+        "T1 Fscores": 0.147,
+        "T2 Fscores": 0.08,
+        "T3 Fscores": 0.351,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 49,
@@ -736,6 +883,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 50,
@@ -751,6 +901,9 @@
     },
     {
         "V1 Fscores": 0.525,
+        "T1 Fscores": 0.541,
+        "T2 Fscores": 0.587,
+        "T3 Fscores": 0.841,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 51,
@@ -766,6 +919,9 @@
     },
     {
         "V1 Fscores": 0.697,
+        "T1 Fscores": 0.533,
+        "T2 Fscores": 0.614,
+        "T3 Fscores": 0.886,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 52,
@@ -781,6 +937,9 @@
     },
     {
         "V1 Fscores": 0.42,
+        "T1 Fscores": 0.547,
+        "T2 Fscores": 0.563,
+        "T3 Fscores": 0.795,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 53,
@@ -796,6 +955,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 54,
@@ -811,6 +973,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 55,
@@ -826,6 +991,9 @@
     },
     {
         "V1 Fscores": null,
+        "T1 Fscores": null,
+        "T2 Fscores": null,
+        "T3 Fscores": null,
         "google_processor_name": "IL_WellCompletion_F",
         "document_type": "Well Completion Report Type F",
         "page_order_sort": 56,
