@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime
 import torch
 import numpy as np
+import pandas as pd
 
 from ogrre_data_cleaning.models.encoder import Encoder, Classifier
 from ogrre_data_cleaning.models.dataloaders import HoleSize
@@ -280,95 +281,131 @@ def clean_bool(checkbox_str: str):
         # If it's not a string and not a boolean, return False
         return False
 
-def convert_hole_size_to_decimal(size_str: str) -> float:
-    """
-    Converts oil/gas well hole size strings to decimal values.
-    
-    Common valid hole sizes are in 1/8 inch increments. Based on the dataset,
-    the following fractions are allowed:
-    
-    Eighths (most common):
-    - 1/8, 3/8, 5/8, 7/8
-    
-    Quarters:
-    - 1/4, 3/4
-    
-    Halves:
-    - 1/2
-    
-    Args:
-        size_str: String containing the hole size (e.g. "8 3/4", "7-7/8", "13 3/8")
+def clean_size_string(size_str):
+    """Clean the size string by removing unwanted characters and normalizing format."""
+    if not size_str or pd.isna(size_str):
+        return None
         
-    Returns:
-        Float decimal equivalent of the hole size or None if empty string
+    # Convert to string and clean
+    size_str = str(size_str)
+    
+    # Remove common suffixes and extra characters
+    size_str = size_str.replace('"', '').replace('″', '').replace('OD', '').strip()
+    
+    # If multiple sizes are given (comma-separated), take the first one
+    if ',' in size_str:
+        size_str = size_str.split(',')[0].strip()
         
-    Raises:
-        ValueError: If the input string cannot be parsed or contains invalid fractions
-    """
+    # Remove any trailing numbers after space (e.g., "8 3/4 4265" -> "8 3/4")
+    parts = size_str.split()
+    if len(parts) > 2 and any(c.isdigit() for c in parts[-1]):
+        size_str = ' '.join(parts[:-1])
+        
+    return size_str
+
+def normalize_special_hole_size(size_str):
+    """Normalize special hole size patterns."""
+    if not size_str:
+        return size_str
+        
+    # Clean the string first
+    size_str = clean_size_string(size_str)
+    if not size_str:
+        return None
+    
+    # Handle special cases like '85/', '95/', '133/'
+    if size_str.endswith('/'):
+        base = size_str[:-1]  # Remove the trailing slash
+        if len(base) == 2:  # e.g., '85'
+            return f"{base[0]} {base[1]}/8"
+        elif len(base) == 3:  # e.g., '133'
+            return f"{base[0]}{base[1]} {base[2]}/8"
+    
+    # Replace hyphens with spaces
+    size_str = size_str.replace('-', ' ')
+    
+    # If the string ends with a partial fraction (e.g., "8 3/"), add "8"
+    if size_str.endswith('/'):
+        size_str += '8'
+    elif ' ' in size_str and size_str.split()[-1].endswith('/'):
+        size_str = size_str + '8'
+    
+    return size_str
+
+def convert_hole_size_to_decimal(size_str):
+    """Convert hole size string to decimal value."""
+    if not size_str or pd.isna(size_str):
+        return None
+    
+    # Handle special text values
+    if isinstance(size_str, str):
+        size_str = size_str.strip().lower()
+        if size_str in ['none', 'n/a', 'na', 'null', '-', '', 'unknown']:
+            print(f"DEBUG: Special text value found: {size_str}")
+            return None
+    
+    # First normalize the string
+    size_str = normalize_special_hole_size(str(size_str))
+    print(f"DEBUG: After special normalization - size_str='{size_str}', type={type(size_str)}")
+    
+    if not size_str:
+        return None
+    
+    # Replace any Unicode fractions with standard ASCII
+    size_str = size_str.replace('½', '1/2').replace('¼', '1/4').replace('¾', '3/4')
+    print(f"DEBUG: After Unicode replacement - size_str='{size_str}', type={type(size_str)}")
+    
+    # Remove any remaining whitespace and quotes
+    size_str = size_str.strip().strip('"\'')
+    
+    # Check for common hole sizes first (without spaces)
+    common_hole_sizes = {
+        '85/8': 8.625,
+        '95/8': 9.625,
+        '133/8': 13.375
+    }
+    
+    # Remove spaces for comparison
+    no_space_str = size_str.replace(' ', '')
+    if no_space_str in common_hole_sizes:
+        print(f"DEBUG: Found match in common_hole_sizes: {no_space_str}")
+        return common_hole_sizes[no_space_str]
+    
     # If input is already a float, return it
     if isinstance(size_str, float):
         return size_str
-        
-    # Check for empty string
-    if not size_str or size_str.strip() == "":
-        return None
-        
-    # Strip whitespace and quotes
-    size_str = size_str.strip().strip('"').strip("'")
-    
-    # Handle pure decimal inputs
     try:
         return float(size_str)
     except ValueError:
         pass
         
-    # Remove common separators
-    size_str = size_str.replace('-', ' ').replace('/', ' ')
-    
-    # Split into whole and fractional parts
-    parts = size_str.split()
-    
-    # Get the whole number
+    # Handle fractions
     try:
-        whole = float(parts[0])
-    except ValueError:
-        raise ValueError(f"Invalid whole number: {parts[0]}")
+        # Split on space to separate whole number from fraction
+        parts = size_str.split()
         
-    # If no fraction, return whole number
-    if len(parts) == 1:
-        return whole
-        
-    # Handle fraction part
-    if len(parts) != 3:
-        raise ValueError(f"Invalid fraction format: {size_str}")
-        
-    try:
-        numerator = int(parts[1])
-        denominator = int(parts[2])
-    except ValueError:
-        raise ValueError(f"Invalid fraction numbers: {parts[1]}/{parts[2]}")
-        
-    # Validate allowed fractions
-    valid_fractions = {
-        # Eighths
-        (1,8): 0.125,
-        (3,8): 0.375,
-        (5,8): 0.625,
-        (7,8): 0.875,
-        
-        # Quarters  
-        (1,4): 0.25,
-        (3,4): 0.75,
-        
-        # Halves
-        (1,2): 0.5
-    }
-    
-    fraction_tuple = (numerator, denominator)
-    if fraction_tuple not in valid_fractions:
-        raise ValueError(f"Invalid or uncommon fraction: {numerator}/{denominator}")
-        
-    return whole + valid_fractions[fraction_tuple]
+        if len(parts) == 1:
+            # Just a fraction like "1/2"
+            if '/' in parts[0]:
+                num, denom = map(int, parts[0].split('/'))
+                return num / denom
+            return float(parts[0])
+            
+        elif len(parts) == 2:
+            # Whole number and fraction like "8 3/4"
+            whole = float(parts[0])
+            if '/' in parts[1]:
+                num, denom = map(int, parts[1].split('/'))
+                return whole + (num / denom)
+            return whole + float(parts[1])
+            
+        else:
+            print(f"DEBUG: Invalid format - too many parts: {parts}")
+            return None
+            
+    except (ValueError, ZeroDivisionError) as e:
+        print(f"DEBUG: Error parsing size: {e}")
+        return None
 
 
 if __name__ == '__main__':
@@ -486,10 +523,69 @@ if __name__ == '__main__':
 
     input = None
     hole_size = convert_hole_size_to_decimal(input)
+    print('Input: None')
+    print('Hole size: {}\n'.format(hole_size))
+    
     # Test with empty string
     input = ""
     hole_size = convert_hole_size_to_decimal(input)
     print('Input: empty string')
+    print('Hole size: {}\n'.format(hole_size))
+    
+    # Test cases for problem Unicode characters
+    print("Testing Unicode character handling:")
+    input = '8-3/4\u2033'  # With inch symbol
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = '5\u00bd'  # With ½ symbol
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    # Test cases for special formats
+    print("Testing special format handling:")
+    input = '85/8'  # Missing space
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = '95/8'  # Missing space
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = '133/8'  # Missing space
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = '8 3/4" OD'  # With OD text
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = 'None'  # Text value
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = 'N/A'  # Text value
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    # Test cases for compound values
+    print("Testing compound values:")
+    input = '17 1/2, 12 1/4, 7-7/8'  # Multiple sizes
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
+    print('Hole size: {}\n'.format(hole_size))
+    
+    input = '8 3/4 4265'  # With depth
+    hole_size = convert_hole_size_to_decimal(input)
+    print('Input: {}'.format(input))
     print('Hole size: {}\n'.format(hole_size))
     
     # Test cases for handling inputs that are already in the target data type
