@@ -28,15 +28,15 @@
     {
         "Processor Type": "Extractor",
         "Processor Name": "IL_Ver_A_WellCompletion",
-        "Model Name": "T4",
-        "F1 Score": 0.903,
+        "Model Name": "T5",
+        "F1 Score": 0.94,
         "Primary Model in Processor": "primary",
         "Training Documents": 139.0,
         "Testing Documents": 113.0,
-        "Date Trained": 1738713600000,
-        "Foundation Model": "pretrained-foundation-model-v1.3-2024-08-31",
+        "Date Trained": 1743724800000,
+        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
         "Processor ID": "b0cd461b8a51afca",
-        "Model ID": "d4784a347f422353"
+        "Model ID": "f3cd6a9e298241b9"
     },
     {
         "Processor Type": "Extractor",
