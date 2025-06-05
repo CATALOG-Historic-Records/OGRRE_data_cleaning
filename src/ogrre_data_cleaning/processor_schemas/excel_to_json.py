@@ -57,11 +57,12 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
     extractors_dir = f"{Organization}_extractors"
     if not os.path.exists(extractors_dir):
         os.makedirs(extractors_dir)
-    
+    Extractors = Extractors.astype({'Training Documents': 'float64','Testing Documents': 'float64'})
     write_json(Dataframe = Extractors.reset_index()[Extractors.columns], Filepath = f"{Organization}_extractors/00Extractor Processors.json", key_replacements=key_replacements)
     
     for processor in Extractors["Processor Name"]:
         processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
+        processor_df = processor_df.astype({'Page Order Sort': 'float64'})
         write_json(Dataframe =  processor_df, Filepath = f"{Organization}_extractors/{processor}.json", key_replacements=key_replacements)
     
     try:

@@ -984,7 +984,7 @@
         "occurrence": "Optional multiple",
         "grouping": null,
         "database_data_type": "Table",
-        "cleaning_function": "None",
+        "cleaning_function": null,
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
@@ -1754,7 +1754,7 @@
         "occurrence": "Optional multiple",
         "grouping": null,
         "database_data_type": "Table",
-        "cleaning_function": "None",
+        "cleaning_function": null,
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
@@ -1820,7 +1820,7 @@
         "occurrence": "Optional multiple",
         "grouping": null,
         "database_data_type": "Table",
-        "cleaning_function": "None",
+        "cleaning_function": null,
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
