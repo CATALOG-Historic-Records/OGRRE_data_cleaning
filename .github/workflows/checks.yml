@@ -45,11 +45,11 @@ jobs:
           channels: conda-forge
           activate-environment: ogrre_data_cleaning_env
 
-      - name: Install (dev)
+      - name: Install
         run: |
           pip install .[test]
 
       - name: Run pytest
+        working-directory: tests
         run: |
-          pip install pytest  # ensure pytest is installed (should do nothing if already present from requirements-dev.txt)
-          pytest --pyargs ogrre_data_cleaning --verbose
+          pytest --verbose .
