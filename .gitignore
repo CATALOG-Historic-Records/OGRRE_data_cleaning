@@ -4,3 +4,4 @@ build/
 data
 import-debug.ipynb
 summary.md
+.coverage

@@ -16,7 +16,7 @@ def get_processor_list(collaborator: str):
             List of processors or None
     """
     try:
-        with importlib.resources.open_text(__package__+f".{collaborator}_extractors", "00Extractor Processors.json") as f:
+        with importlib.resources.open_text(__package__+f".{collaborator}_extractors", "Extractor Processors.json") as f:
             return json.load(f)
     except Exception as e:
         print(f"unable to find processor list for collaborator: {collaborator}")
@@ -36,6 +36,9 @@ def get_processor_by_id(collaborator: str, processor_id: str):
         return None
 
     extractor_data = get_processor_list(collaborator)
+
+    if not extractor_data:
+        return None
 
     processor_data = None
     for extractor in extractor_data:
@@ -70,6 +73,9 @@ def get_processor_by_name(collaborator: str = "isgs", processor_name: str = None
         return None
 
     extractor_data = get_processor_list(collaborator)
+    
+    if not extractor_data:
+        return None
 
     processor_data = None
     for extractor in extractor_data:
