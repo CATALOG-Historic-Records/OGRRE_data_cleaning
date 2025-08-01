@@ -535,7 +535,7 @@
         "google_processor_name": "IL_Ver_A_PluggingReport",
         "document_type": "Well Plugging Report Type A",
         "page_order_sort": 26.0,
-        "name": "Date_Drilling_Begain",
+        "name": "Date_Drilling_Began",
         "google_data_type": "Plain text",
         "occurrence": "Optional once",
         "grouping": null,
