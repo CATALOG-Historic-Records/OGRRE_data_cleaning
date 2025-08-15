@@ -15,15 +15,15 @@
     {
         "Processor Type": "Extractor",
         "Processor Name": "IL_Ver_A_PluggingReport",
-        "Model Name": "T5",
-        "F1 Score": 0.964,
+        "Model Name": "T7",
+        "F1 Score": 0.961,
         "Primary Model in Processor": "primary",
-        "Training Documents": 58.0,
-        "Testing Documents": 52.0,
-        "Date Trained": 1743984000000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Training Documents": 103.0,
+        "Testing Documents": 92.0,
+        "Date Trained": 1755043200000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "66b6b0b6a6db9039",
-        "Model ID": "530d721d75f2f9ad"
+        "Model ID": "c6c9ff78503120b5"
     },
     {
         "Processor Type": "Extractor",
