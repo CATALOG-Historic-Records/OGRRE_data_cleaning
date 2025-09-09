@@ -1554,7 +1554,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "date",
-        "cleaning_function": "string_to_date",
+        "cleaning_function": "clean_date",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
@@ -1658,7 +1658,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "date",
-        "cleaning_function": "string_to_date",
+        "cleaning_function": "clean_date",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "No"
