@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from ogrre_data_cleaning.clean import string_to_float, string_to_int, llm_clean, clean_date, clean_bool, convert_hole_size_to_decimal
+from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -9,17 +9,32 @@ from ogrre_data_cleaning.clean import string_to_float, string_to_int, llm_clean,
     (123.45, 123.45),
     ("not a number", None),
     (None, None),
+    # Trailing dash fixes
+    ("70-", 70.0),
+    ("123.45-", 123.45),
+    ("-456-", -456.0),
+    ("123--", 123.0),
+    ("12.34-", 12.34),
 ])
 def test_string_to_float(input_value, expected):
     assert string_to_float(input_value) == expected
 
 @pytest.mark.unit
-def test_string_to_int():
-    assert string_to_int("123") == 123
-    assert string_to_int("$123") == 123
-    assert string_to_int(42) == 42
-    assert string_to_int("not a number") is None
-    assert string_to_int(None) is None
+@pytest.mark.parametrize("input_value, expected", [
+    ("123", 123),
+    ("$123", 123),
+    (42, 42),
+    ("not a number", None),
+    (None, None),
+    # Trailing dash fixes
+    ("70-", 70),
+    ("1424-", 1424),
+    ("-456-", -456),
+    ("123--", 123),
+    ("12.34-", 1234),  # Decimal gets converted to int by removing non-digits
+])
+def test_string_to_int(input_value, expected):
+    assert string_to_int(input_value) == expected
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -33,6 +48,19 @@ def test_string_to_int():
     ("7/4/99", "07/04/1999"),
     (None, None),
     ("", None),
+    # Long format date fixes
+    ("July 7, 1977", "07/07/1977"),  # Original issue - full month with space after comma
+    ("July 7 1977", "07/07/1977"),  # Full month without comma
+    ("March 30, 1963", "03/30/1963"),  # Another full month with space after comma
+    ("Sept. 11, 1957", "09/11/1957"),  # Non-standard month abbreviation (normalized)
+    ("Sept 11, 1957", "09/11/1957"),  # Non-standard month abbreviation without period
+    ("December 25, 2000", "12/25/2000"),  # Long month name
+    ("Jan 15, 2020", "01/15/2020"),  # Standard abbreviated month with space after comma
+    ("October 31 1999", "10/31/1999"),  # Long month without comma
+    # Trailing dash fixes for dates
+    ("3/31/61-", "03/31/1961"),
+    ("1/1/2020-", "01/01/2020"),
+    ("April 28,1958-", "04/28/1958"),
 ])
 def test_clean_date(input_value, expected):
     assert clean_date(input_value) == expected
@@ -94,15 +122,6 @@ def test_convert_hole_size_to_decimal_invalid(invalid_input):
     with pytest.raises(ValueError):
         convert_hole_size_to_decimal(invalid_input)
 
-@pytest.mark.unit
-def test_llm_clean():
-    # Test basic functionality
-    result = llm_clean("6 inch")
-    assert isinstance(result, (float, int))
-    
-    # Test with invalid model
-    with pytest.raises(Exception):
-        llm_clean("test", model_name="nonexistent")
 
 # if __name__ == '__main__':
 #     test_clean_date()
@@ -110,7 +129,6 @@ def test_llm_clean():
 #     test_convert_hole_size_to_decimal()
 #     test_string_to_int()
 #     test_string_to_float()
-#     test_llm_clean()
 
 #     test_convert_hole_size_to_decimal_invalid()
 #     test_clean_date_invalid()

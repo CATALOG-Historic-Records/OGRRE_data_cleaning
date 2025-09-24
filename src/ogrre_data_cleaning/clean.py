@@ -23,6 +23,9 @@ def string_to_date(s: str):
     # Use regex to keep only valid date characters
     cleaned_string = re.sub(r"[^\d-]+", "", s)
     
+    # Remove trailing dashes that might be formatting artifacts
+    cleaned_string = cleaned_string.rstrip('-')
+    
     # Handle edge cases like empty strings or invalid formats
     try:
         # Try various date formats
@@ -57,6 +60,9 @@ def string_to_float(s: str):
     # Use regex to keep only valid numeric characters, including '-' for negatives and '.' for decimals
     cleaned_string = re.sub(r"[^\d.-]+", "", s)
     
+    # Remove trailing dashes that might be formatting artifacts
+    cleaned_string = cleaned_string.rstrip('-')
+    
     # Handle edge cases like empty strings or invalid formats
     try:
         return float(cleaned_string)
@@ -83,6 +89,9 @@ def string_to_int(s: str):
     
     # Use regex to keep only digits and '-' for negatives
     cleaned_string = re.sub(r"[^\d-]+", "", s)
+    
+    # Remove trailing dashes that might be formatting artifacts
+    cleaned_string = cleaned_string.rstrip('-')
     
     # Handle edge cases like empty strings or invalid formats
     try:
@@ -188,8 +197,10 @@ def clean_date(date_str: str) -> datetime | None:
         '%m-%d-%Y',           # 10-17-1983
         '%m-%d-%y',           # 5-27-66
         '%d-%b-%y',           # 29-Jul-71
-        '%b %d, %Y',          # March 30. 1963
-        '%B %d,%Y',           # April 28,1958
+        '%B %d, %Y',          # July 7, 1977 (full month with space after comma)
+        '%B %d %Y',           # July 7 1977 (full month without comma)
+        '%b %d, %Y',          # March 30, 1963 (abbreviated month with space after comma)
+        '%B %d,%Y',           # April 28,1958 (full month without space after comma)
         '%b. %d, %Y',         # Sept. 11, 1957
         '%d/%m/%Y',           # 17/18/95 (ambiguous, assumes DD/MM/YYYY)
         '%Y'                  # 1949
@@ -198,6 +209,15 @@ def clean_date(date_str: str) -> datetime | None:
     # Clean up some common variations
     date_str = re.sub(r'\.(?=\s|$)', '', date_str)  # Remove trailing periods
     date_str = re.sub(r'\s+', ' ', date_str)        # Normalize spaces
+    date_str = date_str.rstrip('-')                  # Remove trailing dashes
+    
+    # Normalize non-standard month abbreviations
+    month_replacements = {
+        'Sept.': 'Sep.',
+        'Sept ': 'Sep ',
+    }
+    for old, new in month_replacements.items():
+        date_str = date_str.replace(old, new)
     
     # Try each format
     for fmt in formats:
@@ -620,3 +640,47 @@ if __name__ == '__main__':
     result = convert_hole_size_to_decimal(float_val)
     print(f"Input: {float_val} (float)")
     print(f"convert_hole_size_to_decimal result: {result}, same object: {result is float_val}\n")
+    
+    # Test cases for trailing dash fix
+    print("Testing trailing dash handling (fixed issue):")
+    
+    # Test the original problematic cases
+    trailing_dash_cases = ['3/31/61-', '70-', 'NF1424-']
+    
+    for case in trailing_dash_cases:
+        print(f"Input: '{case}'")
+        print(f"  string_to_float: {string_to_float(case)}")
+        print(f"  string_to_int: {string_to_int(case)}")
+        print(f"  clean_date: {clean_date(case)}")
+        print()
+    
+    # Test additional edge cases with trailing dashes
+    print("Additional trailing dash test cases:")
+    edge_cases = ['123--', '12.34-', '-456-', '1/1/2020-', 'April 28,1958-']
+    
+    for case in edge_cases:
+        print(f"Input: '{case}'")
+        print(f"  string_to_float: {string_to_float(case)}")
+        print(f"  string_to_int: {string_to_int(case)}")
+        print(f"  clean_date: {clean_date(case)}")
+        print()
+    
+    # Test cases for long format date fix
+    print("Testing long format date handling (fixed issue):")
+    
+    # Test the original problematic cases and variations
+    long_date_cases = [
+        'July 7, 1977',      # Original issue - full month with space after comma
+        'July 7 1977',       # Full month without comma
+        'March 30, 1963',    # Another full month with space after comma
+        'Sept. 11, 1957',    # Non-standard month abbreviation (normalized)
+        'Sept 11, 1957',     # Non-standard month abbreviation without period
+        'December 25, 2000', # Long month name
+        'Jan 15, 2020',      # Standard abbreviated month with space after comma
+        'October 31 1999',   # Long month without comma
+    ]
+    
+    for case in long_date_cases:
+        result = clean_date(case)
+        print(f"Input: '{case}' -> Output: {result}")
+    print()

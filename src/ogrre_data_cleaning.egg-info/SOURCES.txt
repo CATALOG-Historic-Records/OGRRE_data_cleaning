@@ -16,6 +16,7 @@ src/ogrre_data_cleaning/models/encoder.py
 src/ogrre_data_cleaning/processor_schemas/__init__.py
 src/ogrre_data_cleaning/processor_schemas/excel_to_json.py
 src/ogrre_data_cleaning/processor_schemas/processor_api.py
+src/ogrre_data_cleaning/processor_schemas/isgs_extractors/01Obsolete Fields.json
 src/ogrre_data_cleaning/processor_schemas/isgs_extractors/Extractor Processors.json
 src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_InspectorCasingCement_B.json
 src/ogrre_data_cleaning/processor_schemas/isgs_extractors/IL_Ver_A_PluggingReport.json
