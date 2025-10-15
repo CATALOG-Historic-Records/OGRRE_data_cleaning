@@ -1,0 +1,15 @@
+[
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Osage_V1_Plugging_Report",
+        "Model Name": "V1_4-01",
+        "F1 Score": 0.954,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 97.0,
+        "Testing Documents": 60.0,
+        "Date Trained": 1759968000000,
+        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Processor ID": "8c61c1c5fde72f92",
+        "Model ID": "6ca78af008198477"
+    }
+]

@@ -50,7 +50,8 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
         "Cleaning Function": "cleaning_function",
         "Accepted Range": "accepted_range",
         "Field Specific Notes": "field_specific_notes",
-        "Model Enabled": "model_enabled"
+        "Model Enabled": "model_enabled",
+        "Alias": "alias"
     }
 
     
@@ -74,5 +75,6 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
 if __name__ == '__main__':
     Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False)
     Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False)
+    Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False)
     
     
