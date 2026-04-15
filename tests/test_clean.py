@@ -15,6 +15,7 @@ from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date
     ("-456-", -456.0),
     ("123--", 123.0),
     ("12.34-", 12.34),
+    (340, 340.),
 ])
 def test_string_to_float(input_value, expected):
     assert string_to_float(input_value) == expected

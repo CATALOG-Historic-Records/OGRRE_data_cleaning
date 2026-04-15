@@ -55,7 +55,12 @@ def string_to_float(s: str):
         return s
         
     if not isinstance(s, str):
-        return None
+        # check for previously converted to integer values
+        if isinstance(s, int):
+            ret_val = string_to_int(s)
+            return float(ret_val)
+        else:
+            return None
     
     # Use regex to keep only valid numeric characters, including '-' for negatives and '.' for decimals
     cleaned_string = re.sub(r"[^\d.-]+", "", s)
@@ -744,6 +749,12 @@ if __name__ == '__main__':
         '',              # Empty string
         'invalid',       # Invalid text
     ]
+
+    # Test cases for previously cleaned values being passed into different cleaning function
+    # case depth in 120910008000_WELL_COMPLETION_REPORT_2 
+    depth = 340
+    result = string_to_float(depth)
+    print(f"string_to_float: {result} is type: {type(result)}")
     
     for case in depth_cases:
         result = clean_depth(case)
