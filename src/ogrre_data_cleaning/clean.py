@@ -88,6 +88,8 @@ def string_to_int(s: str):
     # If input is already an int, return it
     if isinstance(s, int):
         return s
+    elif isinstance(s, float):
+        return int(s)
         
     if not isinstance(s, str):
         return None
@@ -207,6 +209,7 @@ def clean_date(date_str: str) -> datetime | None:
         '%b %d, %Y',          # March 30, 1963 (abbreviated month with space after comma)
         '%B %d,%Y',           # April 28,1958 (full month without space after comma)
         '%b. %d, %Y',         # Sept. 11, 1957
+        '%b, %d, %Y',         # Dec, 24, 1943
         '%d/%m/%Y',           # 17/18/95 (ambiguous, assumes DD/MM/YYYY)
         '%Y'                  # 1949
     ]
