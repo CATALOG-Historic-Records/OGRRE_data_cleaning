@@ -56,6 +56,7 @@ def test_string_to_int(input_value, expected):
     ("", None),
     ("07/17/1954", "07/17/1954"),
     ("9/26/67", "09/26/1967"),
+    ("10-20-60", "10/20/1960"),
     # Long format date fixes
     ("July 7, 1977", "07/07/1977"),  # Original issue - full month with space after comma
     ("July 7 1977", "07/07/1977"),  # Full month without comma
@@ -70,6 +71,8 @@ def test_string_to_int(input_value, expected):
     ("1/1/2020-", "01/01/2020"),
     ("April 28,1958-", "04/28/1958"),
     ("Dec, 24, 1943", "12/24/1943"),
+    ("Dec, 24th, 1943", "12/24/1943"),
+    ("Sep 1st, 1957", "09/01/1957"),
 ])
 def test_clean_date(input_value, expected):
     output = clean_date(input_value)

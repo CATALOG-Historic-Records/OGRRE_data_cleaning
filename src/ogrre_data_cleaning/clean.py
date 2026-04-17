@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 from datetime import datetime
+import dateutil.parser as date_parser
 import torch
 import numpy as np
 import pandas as pd
@@ -175,7 +176,7 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     
     return dataset.classes[y_pred]
 
-def clean_date(date_str: str) -> datetime | None:
+def clean_date_DEPRECATED(date_str: str) -> datetime | None:
     """
     Clean and standardize date strings into datetime objects.
     
@@ -255,6 +256,47 @@ def clean_date(date_str: str) -> datetime | None:
             pass
             
     return None
+
+def clean_date(date_str: str) ->datetime | None:
+    """Clean_date function that utilizes dateutil.parser for generalized formatless date conversions.
+
+    Cleans and standardizes date string entries into datetime objects.
+    
+    Args:
+        date_str: String containing a date
+        
+    Returns:
+        datetime object if successful, None if invalid date
+    """
+    if isinstance(date_str, datetime):
+        return date_str
+        
+    if not date_str or date_str in ['N/A', 'illegible', '-', 'BEFORE', 'SAME AS BEFORE']:
+        return None
+        
+    # Remove any extra whitespace
+    date_str = date_str.strip()
+
+    # Clean up some common variations
+    date_str = re.sub(r'\.(?=\s|$)', '', date_str)  # Remove trailing periods
+    date_str = re.sub(r'\s+', ' ', date_str)        # Normalize spaces
+    date_str = date_str.rstrip('-')                  # Remove trailing dashes
+    # "Month_str DD,YYYY" -> "Month_str DD, YYYY"
+    date_str = date_str.replace(",", ", ")          # in text entries, make sure day and year are ", " separated (comma and space)
+
+    try:
+        res = date_parser.parse(date_str,)
+    except:
+        return None 
+    
+    m_year = res.year
+
+    # replace years above current year with 19XX version 
+    if m_year > datetime.now().year:
+        res = res.replace(year=m_year-100)
+
+    return res.strftime('%m/%d/%Y')
+
 
 def clean_bool(checkbox_str: str):
     '''
