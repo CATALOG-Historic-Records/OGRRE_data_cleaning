@@ -73,6 +73,7 @@ def test_string_to_int(input_value, expected):
     ("Dec, 24, 1943", "12/24/1943"),
     ("Dec, 24th, 1943", "12/24/1943"),
     ("Sep 1st, 1957", "09/01/1957"),
+    ("Apr 3rd, 2011", "04/03/2011")
 ])
 def test_clean_date(input_value, expected):
     output = clean_date(input_value)

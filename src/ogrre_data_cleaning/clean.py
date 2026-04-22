@@ -54,14 +54,11 @@ def string_to_float(s: str):
     # If input is already a float, return it
     if isinstance(s, float):
         return s
-        
+    elif isinstance(s, int):
+        return float(s)
+    
     if not isinstance(s, str):
-        # check for previously converted to integer values
-        if isinstance(s, int):
-            ret_val = string_to_int(s)
-            return float(ret_val)
-        else:
-            return None
+        return None
     
     # Use regex to keep only valid numeric characters, including '-' for negatives and '.' for decimals
     cleaned_string = re.sub(r"[^\d.-]+", "", s)
