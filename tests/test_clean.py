@@ -15,9 +15,12 @@ from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date
     ("-456-", -456.0),
     ("123--", 123.0),
     ("12.34-", 12.34),
+    (340, 340.),
 ])
 def test_string_to_float(input_value, expected):
-    assert string_to_float(input_value) == expected
+    output = string_to_float(input_value)
+    assert output == expected
+    assert string_to_float(output) == expected
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -32,9 +35,12 @@ def test_string_to_float(input_value, expected):
     ("-456-", -456),
     ("123--", 123),
     ("12.34-", 1234),  # Decimal gets converted to int by removing non-digits
+    (123.4, 123)
 ])
 def test_string_to_int(input_value, expected):
-    assert string_to_int(input_value) == expected
+    output = string_to_int(input_value)
+    assert output == expected
+    assert string_to_int(output) == expected
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -48,6 +54,9 @@ def test_string_to_int(input_value, expected):
     ("7/4/99", "07/04/1999"),
     (None, None),
     ("", None),
+    ("07/17/1954", "07/17/1954"),
+    ("9/26/67", "09/26/1967"),
+    ("10-20-60", "10/20/1960"),
     # Long format date fixes
     ("July 7, 1977", "07/07/1977"),  # Original issue - full month with space after comma
     ("July 7 1977", "07/07/1977"),  # Full month without comma
@@ -61,9 +70,16 @@ def test_string_to_int(input_value, expected):
     ("3/31/61-", "03/31/1961"),
     ("1/1/2020-", "01/01/2020"),
     ("April 28,1958-", "04/28/1958"),
+    ("Dec, 24, 1943", "12/24/1943"),
+    ("Dec, 24th, 1943", "12/24/1943"),
+    ("Sep 1st, 1957", "09/01/1957"),
+    ("Apr 3rd, 2011", "04/03/2011")
 ])
 def test_clean_date(input_value, expected):
-    assert clean_date(input_value) == expected
+    output = clean_date(input_value)
+    assert output == expected
+    assert clean_date(output) == expected
+
 
 # ## TODO: should this raise an error?
 # COMMENTED OUT: Pre-existing test failure - clean_date doesn't raise ValueError for invalid dates
@@ -91,7 +107,9 @@ def test_clean_date(input_value, expected):
     # ('test', False)  # COMMENTED OUT: Pre-existing bug - clean_bool finds 't' in 'test' and returns True
 ])
 def test_clean_bool(input_value, expected):
-    assert clean_bool(input_value) == expected
+    output = clean_bool(input_value) 
+    assert output == expected
+    assert clean_bool(output) == expected
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -111,7 +129,9 @@ def test_clean_bool(input_value, expected):
     # ("8 3/4\" OD", 8.75),  # COMMENTED OUT: Pre-existing bug - can't handle OD suffix, returns None
 ])
 def test_convert_hole_size_to_decimal(input_value, expected):
-    assert convert_hole_size_to_decimal(input_value) == expected
+    output = convert_hole_size_to_decimal(input_value)
+    assert output == expected
+    assert convert_hole_size_to_decimal(output) == expected
 
 ## TODO: should these produce errors?
 # COMMENTED OUT: Pre-existing test failures - these don't raise ValueError, they process successfully
@@ -152,7 +172,9 @@ def test_convert_hole_size_to_decimal(input_value, expected):
     ("invalid", None),
 ])
 def test_clean_depth(input_value, expected):
-    assert clean_depth(input_value) == expected
+    output = clean_depth(input_value)
+    assert output == expected
+    assert clean_depth(output) == expected
 
 # if __name__ == '__main__':
 #     test_clean_date()
