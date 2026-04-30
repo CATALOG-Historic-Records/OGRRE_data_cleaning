@@ -122,10 +122,15 @@ def test_clean_bool(input_value, expected):
     ("None", None),
     ("N/A", None),
     (8.75, 8.75),
-    # ("5\u00bd", 5.5), # COMMENTED OUT: Pre-existing bug - unicode ½ parsing returns 25.5 instead of 5.5
+    ("5\u00bd", 5.5),
     ("85/8", 8.625),
     ("95/8", 9.625),
     ("133/8", 13.375),
+    ("17½", 17.5),
+    ("5\u215E", 5.875),
+    ("8⅝", 8.625),
+    ("9⅝", 9.625),
+    ("13⅜", 13.375)
     # ("8 3/4\" OD", 8.75),  # COMMENTED OUT: Pre-existing bug - can't handle OD suffix, returns None
 ])
 def test_convert_hole_size_to_decimal(input_value, expected):

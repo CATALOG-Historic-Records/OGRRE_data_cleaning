@@ -5,6 +5,7 @@ import dateutil.parser as date_parser
 import torch
 import numpy as np
 import pandas as pd
+import unicodedata
 
 from ogrre_data_cleaning.models.encoder import Encoder, Classifier
 from ogrre_data_cleaning.models.dataloaders import HoleSize
@@ -435,6 +436,25 @@ def normalize_special_hole_size(size_str):
     
     return size_str
 
+def is_unicode_fraction(m_char):
+    """Checks if a character is a unicode fraction
+    """
+    try:
+        value = unicodedata.numeric(m_char)
+        return not value.is_integer()
+    except:
+        return False
+
+def separate_fractions(m_str):
+    """Adds a space before unicode fractions detected to avoid cases like "17½" -> 171/2 == 85.5
+    """
+    res = []
+    for i, char in enumerate(m_str):
+        if is_unicode_fraction(char):
+            res.append(' ')
+        res.append(char)
+    return ''.join(res)
+
 def convert_hole_size_to_decimal(size_str):
     """Convert hole size string to decimal value."""
     if not size_str or pd.isna(size_str):
@@ -454,8 +474,30 @@ def convert_hole_size_to_decimal(size_str):
     if not size_str:
         return None
     
+    size_str = separate_fractions(size_str)
+    print(f"DEBUG: After separating fractions - size_str = '{size_str}'")
+
     # Replace any Unicode fractions with standard ASCII
-    size_str = size_str.replace('½', '1/2').replace('¼', '1/4').replace('¾', '3/4')
+    common_fracs = {
+        "½": "1/2",
+        "⅓": "1/3",
+        "⅔": "2/3",
+        "¼": "1/4",
+        "¾": "3/4",
+        "⅕": "1/5",
+        "⅖": "2/5",
+        "⅗": "3/5",
+        "⅘": "4/5",
+        "⅙": "1/6",
+        "⅚": "5/6",
+        "⅐": "1/7",
+        "⅛": "1/8",
+        "⅜": "3/8",
+        "⅝": "5/8",
+        "⅞": "7/8" # ⅑, ⅒, ⅟, ↉, 
+    }
+    for m_frac, frac_ascii in common_fracs.items():
+        size_str = size_str.replace(m_frac, frac_ascii)
     print(f"DEBUG: After Unicode replacement - size_str='{size_str}', type={type(size_str)}")
     
     # Remove any remaining whitespace and quotes
