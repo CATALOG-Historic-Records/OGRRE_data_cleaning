@@ -8,7 +8,7 @@
         "Training Documents": 97.0,
         "Testing Documents": 60.0,
         "Date Trained": 1768521600000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "8c61c1c5fde72f92",
         "Model ID": "206cbbd25211be67"
     },

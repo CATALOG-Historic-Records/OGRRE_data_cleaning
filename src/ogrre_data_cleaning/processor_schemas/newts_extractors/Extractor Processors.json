@@ -1,0 +1,15 @@
+[
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "NEWTS_PADEP26R",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.986,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 30.0,
+        "Testing Documents": 21.0,
+        "Date Trained": 1778630400000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "7d0e713c1f721de4",
+        "Model ID": "e020e188c6c3adca"
+    }
+]
