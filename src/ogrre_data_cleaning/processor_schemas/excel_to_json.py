@@ -24,8 +24,11 @@ def write_json(Dataframe, Filepath, key_replacements=None):
     with open(Filepath, "w", encoding="utf-8") as json_file:
         json.dump(json_dict, json_file, indent=4, default=str)
 
-def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False):
-    Organization = excel_file_path[:excel_file_path.find(' ')].lower()
+def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None):
+    if isinstance(Organization,str):
+        Organization = Organization.lower()
+    else:
+        Organization = excel_file_path[:excel_file_path.find(' ')].lower()
     # Load the Excel file
     excel_file = pd.ExcelFile(excel_file_path)
     sheet_names = excel_file.sheet_names
@@ -53,16 +56,24 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
         "Model Enabled": "model_enabled",
         "Alias": "alias"
     }
-
+    processor_name_replacements = {
+        "Osage_V1_Final_Report_Compl_Dep": "Osage_V1_Final_Report_Compl_Deep",
+    } 
     
     extractors_dir = f"{Organization}_extractors"
     if not os.path.exists(extractors_dir):
         os.makedirs(extractors_dir)
+    for processor in processor_name_replacements:
+        Extractors.loc[Extractors['Processor Name'] == processor,'Processor Name'] = processor_name_replacements[processor]
     Extractors = Extractors.astype({'Training Documents': 'float64','Testing Documents': 'float64'})
     write_json(Dataframe = Extractors.reset_index()[Extractors.columns], Filepath = f"{Organization}_extractors/Extractor Processors.json", key_replacements=key_replacements)
     
     for processor in Extractors["Processor Name"]:
-        processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
+        if processor in processor_name_replacements.values():
+            key = next((k for k, v in processor_name_replacements.items() if v == processor), None)
+            processor_df = pd.read_excel(excel_file_path, sheet_name=key)
+        else:
+            processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
         processor_df = processor_df.astype({'Page Order Sort': 'float64'})
         write_json(Dataframe =  processor_df, Filepath = f"{Organization}_extractors/{processor}.json", key_replacements=key_replacements)
     
@@ -73,15 +84,16 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
         pass
         
 if __name__ == '__main__':
-    Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False)
-    Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False)
-    Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False)
-    """OSAGE NATION SCHEMA: 
-        Following running this script two occurences of 'Osage_V1_Final_Report_Compl_Dep' should be edited to be 
-        'Osage_V1_Final_Report_Compl_Deep'. 
-        This is caused by excel's sheet name character limit that is not present in Google DocAI or Google Sheets.
-        Occurences: 
-            Inside Extractor Processors.json as "Processor Name": "Osage_V1_Final_Report_Compl_Deep", and
-            File name Osage_V1_Final_Report_Compl_Dep.json
-    """
+    Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    Excel_to_Json(excel_file_path = "NEWTS Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    # """OSAGE NATION SCHEMA: 
+    #     Following running this script two occurences of 'Osage_V1_Final_Report_Compl_Dep' should be edited to be 
+    #     'Osage_V1_Final_Report_Compl_Deep'. 
+    #     This is caused by excel's sheet name character limit that is not present in Google DocAI or Google Sheets.
+    #     Occurences: 
+    #         Inside Extractor Processors.json as "Processor Name": "Osage_V1_Final_Report_Compl_Deep", and
+    #         File name Osage_V1_Final_Report_Compl_Dep.json
+    # """
     
