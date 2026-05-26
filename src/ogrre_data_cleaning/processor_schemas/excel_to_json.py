@@ -63,6 +63,11 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
     extractors_dir = f"{Organization}_extractors"
     if not os.path.exists(extractors_dir):
         os.makedirs(extractors_dir)
+    init_path = os.path.join(extractors_dir, "__init__.py")
+    if not os.path.exists(init_path):
+        with open(init_path, "w", encoding="utf-8") as f:
+            pass  # Leave it empty
+        f.close()
     for processor in processor_name_replacements:
         Extractors.loc[Extractors['Processor Name'] == processor,'Processor Name'] = processor_name_replacements[processor]
     Extractors = Extractors.astype({'Training Documents': 'float64','Testing Documents': 'float64'})
