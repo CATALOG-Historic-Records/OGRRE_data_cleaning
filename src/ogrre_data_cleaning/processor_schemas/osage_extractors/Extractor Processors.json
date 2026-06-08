@@ -1,19 +1,6 @@
 [
     {
         "Processor Type": "Extractor",
-        "Processor Name": "Osage_V1_Plugging_Report",
-        "Model Name": "V1_4-02",
-        "F1 Score": 0.944,
-        "Primary Model in Processor": "primary",
-        "Training Documents": 97.0,
-        "Testing Documents": 60.0,
-        "Date Trained": 1768521600000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
-        "Processor ID": "8c61c1c5fde72f92",
-        "Model ID": "206cbbd25211be67"
-    },
-    {
-        "Processor Type": "Extractor",
         "Processor Name": "Osage_V1_Final_Report_Compl_Deep",
         "Model Name": "V1_5-07",
         "F1 Score": 0.867,
@@ -24,5 +11,18 @@
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "9dfbc23dc8a6673e",
         "Model ID": "2c4d1ab39b312baf"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Osage_V1_Plugging_Report",
+        "Model Name": "V1_5-03",
+        "F1 Score": 0.926,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 96.0,
+        "Testing Documents": 60.0,
+        "Date Trained": 1780531200000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "8c61c1c5fde72f92",
+        "Model ID": "5ff53c762a6f12f1"
     }
 ]

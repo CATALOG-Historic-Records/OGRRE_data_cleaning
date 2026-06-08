@@ -81,12 +81,19 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
             processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
         processor_df = processor_df.astype({'Page Order Sort': 'float64'})
         write_json(Dataframe =  processor_df, Filepath = f"{Organization}_extractors/{processor}.json", key_replacements=key_replacements)
-    
+        try: processor_df.close()
+        except:pass
     try:
         Obsolete_df = pd.read_excel(excel_file_path, sheet_name="ObsoleteFields")
         write_json(Dataframe =  Obsolete_df, Filepath = f"{Organization}_extractors/01Obsolete Fields.json", key_replacements=key_replacements)
     except:
         pass
+    try: excel_file.close()
+    except:pass
+    try: Trained_Models_df.close()
+    except:pass
+    try: Obsolete_df.close()
+    except:pass
         
 if __name__ == '__main__':
     Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None)
