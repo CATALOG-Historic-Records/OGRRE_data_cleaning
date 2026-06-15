@@ -11,5 +11,31 @@
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "7d0e713c1f721de4",
         "Model ID": "e020e188c6c3adca"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "PaceQualityControlRadiochem",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.991,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 34.0,
+        "Testing Documents": 18.0,
+        "Date Trained": 1781222400000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "31995b1abec1d75d",
+        "Model ID": "ef935844eac9ba55"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "PaceAnalyticalResultsRadiochem",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.965,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 19.0,
+        "Testing Documents": 11.0,
+        "Date Trained": 1781481600000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "df46497a9066d3a1",
+        "Model ID": null
     }
 ]
