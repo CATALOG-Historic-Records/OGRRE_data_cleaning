@@ -18,8 +18,8 @@
         "Model Name": "V1_5-01",
         "F1 Score": 0.991,
         "Primary Model in Processor": "primary",
-        "Training Documents": 34.0,
-        "Testing Documents": 18.0,
+        "Training Documents": 42.0,
+        "Testing Documents": 27.0,
         "Date Trained": 1781222400000,
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "31995b1abec1d75d",
@@ -29,13 +29,26 @@
         "Processor Type": "Extractor",
         "Processor Name": "PaceAnalyticalResultsRadiochem",
         "Model Name": "V1_5-01",
-        "F1 Score": 0.965,
+        "F1 Score": 0.976,
         "Primary Model in Processor": "primary",
         "Training Documents": 19.0,
         "Testing Documents": 11.0,
         "Date Trained": 1781481600000,
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "df46497a9066d3a1",
-        "Model ID": null
+        "Model ID": "71b4f8a3efda878e"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "PaceAnalyticalResults",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.99,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 23.0,
+        "Testing Documents": 18.0,
+        "Date Trained": 1781740800000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "7380a198d06b8098",
+        "Model ID": "feded376ed0fdb72"
     }
 ]
