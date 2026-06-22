@@ -38,7 +38,7 @@
     {
         "Units": null,
         "Google Description Prompt": "Array of samples reported in the document.",
-        "1_5-01 Fscores": 0.964,
+        "1_5-01 Fscores": 0.975,
         "google_processor_name": "PaceAnalyticalResultsRadiochem",
         "document_type": "Pace Analytical Analytical Results - Radiochem",
         "page_order_sort": 3.0,
@@ -200,7 +200,7 @@
     {
         "Units": null,
         "Google Description Prompt": "Array of test results for the sample.",
-        "1_5-01 Fscores": 0.96,
+        "1_5-01 Fscores": 0.972,
         "google_processor_name": "PaceAnalyticalResultsRadiochem",
         "document_type": "Pace Analytical Analytical Results - Radiochem",
         "page_order_sort": 12.0,
@@ -254,7 +254,7 @@
     {
         "Units": null,
         "Google Description Prompt": "The activity, uncertainty, MDC, and carrier/tracer recovery.",
-        "1_5-01 Fscores": 0.761,
+        "1_5-01 Fscores": 0.857,
         "google_processor_name": "PaceAnalyticalResultsRadiochem",
         "document_type": "Pace Analytical Analytical Results - Radiochem",
         "page_order_sort": 15.0,
