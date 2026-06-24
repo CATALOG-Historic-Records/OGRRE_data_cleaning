@@ -510,7 +510,7 @@
         "google_processor_name": "PaceAnalyticalResults",
         "document_type": "Pace Analytical - Analytical Results",
         "page_order_sort": 23.0,
-        "name": "sample:test_output::units",
+        "name": "sample::test_output::units",
         "alias": "Units",
         "google_data_type": "Plain text",
         "occurrence": "Optional once",
