@@ -2,15 +2,15 @@
     {
         "Processor Type": "Extractor",
         "Processor Name": "Osage_V1_Final_Report_Compl_Deep",
-        "Model Name": "V1_5-08",
-        "F1 Score": 0.88,
+        "Model Name": "V1_5-09",
+        "F1 Score": 0.881,
         "Primary Model in Processor": "primary",
         "Training Documents": 175.0,
         "Testing Documents": 85.0,
-        "Date Trained": 1780617600000,
+        "Date Trained": 1783900800000,
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "9dfbc23dc8a6673e",
-        "Model ID": "e90c3d16d03e7c61"
+        "Model ID": "6a8056c8797bd716"
     },
     {
         "Processor Type": "Extractor",
