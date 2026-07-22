@@ -152,7 +152,7 @@ def test_convert_hole_size_to_decimal(input_value, expected):
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
-    # Surface variations - should all convert to 0.0
+    # Surface variations - should all convert to 0.0 (case-insensitive)
     ("surface", 0.0),
     ("Surface", 0.0),
     ("SURFACE", 0.0),
@@ -163,7 +163,22 @@ def test_convert_hole_size_to_decimal(input_value, expected):
     ("Surf.", 0.0),
     ("SURF.", 0.0),
     ("surface.", 0.0),
-    ("  surf  ", 0.0),  # With whitespace
+    ("  surf  ", 0.0),  # With whitespace (stripped to "surf")
+    # Ground/gnd/gl variations - should convert to 0.0 only if matching casing
+    ("ground", 0.0),
+    ("Ground", 0.0),
+    ("GROUND", None),
+    ("gnd", 0.0),
+    ("gnd.", 0.0),
+    ("gl", 0.0),
+    ("GL.", 0.0),
+    # Total depth / td / bottom variations - should all convert to None
+    ("total depth", None),
+    ("Total Depth", None),
+    ("td", None),
+    ("TD.", None),
+    ("bottom", None),
+    ("Bottom", None),
     # Regular numeric depths
     ("0", 0.0),
     ("1234", 1234.0),
@@ -180,13 +195,3 @@ def test_clean_depth(input_value, expected):
     output = clean_depth(input_value)
     assert output == expected
     assert clean_depth(output) == expected
-
-# if __name__ == '__main__':
-#     test_clean_date()
-#     test_clean_bool()
-#     test_convert_hole_size_to_decimal()
-#     test_string_to_int()
-#     test_string_to_float()
-
-#     test_convert_hole_size_to_decimal_invalid()
-#     test_clean_date_invalid()

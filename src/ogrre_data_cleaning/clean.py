@@ -376,10 +376,23 @@ def clean_depth(depth_str):
     depth_str = str(depth_str).strip()
     
     # Check for 'surface' variations (case-insensitive)
-    # Match: surface, surf, surf., Surf, Surf., SURFACE, etc.
+    # Match: surface, surf, surf., Surf, Surf., SURFACE, SURF, etc.
     surface_pattern = r'^surf(ace)?\.?$'
     if re.match(surface_pattern, depth_str, re.IGNORECASE):
         return 0.0
+
+    # Clean the string for keyword matching (case sensitive, trailing period removed)
+    normalized = depth_str.rstrip('.')
+    
+    # Check for ground, gnd, gl variations (case sensitive)
+    zero_keywords = {"Ground", "GL", "ground", "gnd", "gl"}
+    if normalized in zero_keywords:
+        return 0.0
+        
+    # Check for total depth, td, bottom strings (case sensitive)
+    none_keywords = {"Total Depth", "TD", "Bottom", "total depth", "td", "bottom"}
+    if normalized in none_keywords:
+        return None
     
     # Try to parse as a regular float (handles numbers with trailing dashes, etc.)
     result = string_to_float(depth_str)
