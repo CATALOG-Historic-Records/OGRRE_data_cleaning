@@ -295,7 +295,213 @@ def clean_date(date_str: str) ->datetime | None:
 
     return res.strftime('%m/%d/%Y')
 
+def clean_units(s: str) -> str | None:
+    """
+    Cleans a units string and checks it against standard allowed units:
+    ["Feet", "Inches", "Pounds per Foot", "Sacks", "Hrs", "BBls", "MMCF"].
+    
+    If no exact match is found, finds the closest matching unit key using Levenshtein distance
+    with a maximum distance threshold of 2.
+    
+    Args:
+        s (str): String containing a unit
+        
+    Returns:
+        str: One of the allowed unit strings if matched, or None
+    """
+    if not isinstance(s, str):
+        return None
+        
+    s_clean = s.strip().lower().rstrip('.')
+    if not s_clean:
+        return None
+    
+    # Define mapping of common variants to standard allowed units
+    mapping = {
+        # Feet
+        # "feet": "Feet",
+        # "ft": "Feet",
+        # "foot": "Feet",
+        # "'": "Feet",
+        
+        # Inches
+        # "inches": "Inches",
+        # "in": "Inches",
+        # "inch": "Inches",
+        # '"': "Inches",
+        
+        # Pounds per Foot
+        # "pounds per foot": "Pounds per Foot",
+        # "lbs/ft": "Pounds per Foot",
+        # "lb/ft": "Pounds per Foot",
+        # "lbs per foot": "Pounds per Foot",
+        
+        # Chemical analysis units
+        # mg/L
+        "mg/l": "mg/L",
+        "mg-l": "mg/L",
+        "mgl": "mg/L",
+        "mg / l": "mg/L",
+        
+        # ug/L
+        "ug/l": "ug/L",
+        "ug-l": "ug/L",
+        "ugl": "ug/L",
+        "ug / l": "ug/L",
+        "µg/l": "ug/L",
+        "µg/L": "ug/L",
+        "µg / l": "ug/L",
+        
+        # mg/kg
+        "mg/kg": "mg/kg",
+        "mg-kg": "mg/kg",
+        "mgkg": "mg/kg",
+        "mg / kg": "mg/kg",
+        
+        # ug/kg
+        "ug/kg": "ug/kg",
+        "ug-kg": "ug/kg",
+        "ugkg": "ug/kg",
+        "ug / kg": "ug/kg",
+        "µg/kg": "ug/kg",
+        "µg / kg": "ug/kg",
+        
+        # ppm
+        "ppm": "ppm",
+        "parts per million": "ppm",
+        
+        # ppb
+        "ppb": "ppb",
+        "parts per billion": "ppb",
+        
+        # %
+        "%": "%",
+        "percent": "%",
+        "pct": "%",
+        
+        # NTU
+        "ntu": "NTU",
+        
+        # SU
+        "su": "SU",
+        "s.u": "SU",
+        "s.u.": "SU",
+        "standard units": "SU",
+        
+        # uS/cm
+        "us/cm": "uS/cm",
+        "µs/cm": "uS/cm",
+        "us / cm": "uS/cm",
+        "umhos/cm": "uS/cm",
+        "umhos": "uS/cm",
+        
+        # pCi/L
+        "pci/l": "pCi/L",
+        "pci / l": "pCi/L"
+    }
 
+    # mg/l, mg/L, mg/kg, ug/L, ug/l, umhos/cm, mg CaCO3/L, pCi/L, pCi/g,
+    
+    # 1. Check exact match
+    if s_clean in mapping:
+        return mapping[s_clean]
+        
+    # 2. Check regex/substring match
+    for key, val in mapping.items():
+        if len(key) > 2:
+            pattern = r'\b' + re.escape(key) + r'\b'
+            if re.search(pattern, s_clean):
+                return val
+        else:
+            if key == s_clean:
+                return val
+                
+    # 3. Fuzzy matching with Levenshtein distance
+    def levenshtein_distance(s1: str, s2: str) -> int:
+        if len(s1) < len(s2):
+            return levenshtein_distance(s2, s1)
+        if len(s2) == 0:
+            return len(s1)
+        previous_row = range(len(s2) + 1)
+        for i, c1 in enumerate(s1):
+            current_row = [i + 1]
+            for j, c2 in enumerate(s2):
+                insertions = previous_row[j + 1] + 1
+                deletions = current_row[j] + 1
+                substitutions = previous_row[j] + (c1 != c2)
+                current_row.append(min(insertions, deletions, substitutions))
+            previous_row = current_row
+        return previous_row[-1]
+
+    best_match = None
+    min_dist = 999
+    
+    for key, val in mapping.items():
+        # Skip very short keys (length <= 1, like quotes) for fuzzy matching to avoid false positives
+        if len(key) <= 1:
+            continue
+        dist = levenshtein_distance(s_clean, key)
+        if dist < min_dist:
+            min_dist = dist
+            best_match = val
+            
+    # Allow a maximum distance of 2 characters
+    if min_dist <= 2:
+        return best_match
+        
+    return s
+
+def clean_epa_methods(s: str) -> str | None:
+    """
+    Cleans an EPA method string, matching it against standard allowed EPA methods.
+    
+    Args:
+        s (str): String containing an EPA method
+        
+    Returns:
+        str: Standardized EPA method name (e.g., "EPA 8260B"), or None
+    """
+    if not isinstance(s, str):
+        return None
+        
+    s_clean = s.strip().upper()
+    
+    # Try to extract the core method code using regex
+    # Matches: 8260, 8260B, 300.0, 200.7, TO-15, TO-15A, 1664, 1664A
+    match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?[A-Z]?\b', s_clean)
+    if not match:
+        return None
+        
+    method_code = match.group(0)
+    
+    # List of allowed EPA methods
+    allowed_methods = {
+        "8260", "8260B", "8260C", "8260D",
+        "8270", "8270D", "8270E",
+        "6010", "6010B", "6010C", "6010D",
+        "7470", "7470A", "7471", "7471B",
+        "8081", "8081A", "8081B",
+        "8082", "8082A",
+        "1664", "1664A", "1664B",
+        "300.0", "300.1",
+        "200.7", "200.8",
+        "524.2", "524.3",
+        "TO-15"
+    }
+    
+    if method_code in allowed_methods:
+        return f"EPA {method_code}"
+        
+    # If the exact code with suffix isn't found, try without suffix (e.g. 8260 instead of 8260B)
+    base_match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?\b', method_code)
+    if base_match:
+        base_code = base_match.group(0)
+        # Find any allowed method that starts with the base code
+        for allowed in allowed_methods:
+            if allowed.startswith(base_code):
+                return f"EPA {allowed}"
+                
+    return None
 def clean_bool(checkbox_str: str):
     '''
     check if string is valid representation of boolean

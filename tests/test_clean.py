@@ -80,6 +80,93 @@ def test_clean_date(input_value, expected):
     assert output == expected
     assert clean_date(output) == expected
 
+@pytest.mark.unit
+@pytest.mark.parametrize("input_value, expected", [
+    ("Feet", "Feet"),
+    ("ft", "Feet"),
+    ("feet", "Feet"),
+    ("ft.", "Feet"),
+    ("Inches", "Inches"),
+    ("in", "Inches"),
+    ("inch", "Inches"),
+    ("inches", "Inches"),
+    ("pounds per foot", "Pounds per Foot"),
+    ("lbs/ft", "Pounds per Foot"),
+    ("lbs per foot", "Pounds per Foot"),
+    ("Sacks", "Sacks"),
+    ("sx", "Sacks"),
+    ("sk", "Sacks"),
+    ("sack", "Sacks"),
+    ("Hrs", "Hrs"),
+    ("hr", "Hrs"),
+    ("hours", "Hrs"),
+    ("BBls", "BBls"),
+    ("bbl", "BBls"),
+    ("barrels", "BBls"),
+    ("MMCF", "MMCF"),
+    ("million cubic feet", "MMCF"),
+    # Chemical analysis units
+    ("mg/L", "mg/L"),
+    ("mgl", "mg/L"),
+    ("mg-l", "mg/L"),
+    ("ug/L", "ug/L"),
+    ("µg/l", "ug/L"),
+    ("mg/kg", "mg/kg"),
+    ("mgkg", "mg/kg"),
+    ("ug/kg", "ug/kg"),
+    ("ppm", "ppm"),
+    ("parts per million", "ppm"),
+    ("ppb", "ppb"),
+    ("%", "%"),
+    ("percent", "%"),
+    ("NTU", "NTU"),
+    ("su", "SU"),
+    ("s.u.", "SU"),
+    ("uS/cm", "uS/cm"),
+    ("umhos/cm", "uS/cm"),
+    ("pCi/L", "pCi/L"),
+    # Fuzzy chemical matching
+    ("mg/1", "mg/L"),
+    ("ug/1", "ug/L"),
+    ("pci/1", "pCi/L"),
+    ("ppn", "ppm"),
+    # Fuzzy unit matching test cases (within 2 characters distance)
+    ("feeet", "Feet"),
+    ("fe", "Feet"),
+    ("ins", "Inches"),
+    ("sacsk", "Sacks"),
+    ("bbll", "BBls"),
+    ("inches3", "Inches"),
+    # Outside distance threshold of 2 or unknown
+    ("unknown unit", None),
+    (None, None),
+    (123, None),
+])
+def test_clean_units(input_value, expected):
+    output = clean_units(input_value)
+    assert output == expected
+
+@pytest.mark.unit
+@pytest.mark.parametrize("input_value, expected", [
+    ("8260", "EPA 8260"),
+    ("8260B", "EPA 8260B"),
+    ("Method 8260B", "EPA 8260B"),
+    ("EPA 8260D", "EPA 8260D"),
+    ("EPA Method 8260C", "EPA 8260C"),
+    ("300.0", "EPA 300.0"),
+    ("Method 300.1", "EPA 300.1"),
+    ("TO-15", "EPA TO-15"),
+    ("EPA TO-15", "EPA TO-15"),
+    ("1664A", "EPA 1664A"),
+    ("Method 1664", "EPA 1664"),
+    ("9999", None),
+    ("invalid method", None),
+    (None, None),
+    (123, None),
+])
+def test_clean_epa_methods(input_value, expected):
+    output = clean_epa_methods(input_value)
+    assert output == expected
 
 # ## TODO: should this raise an error?
 # COMMENTED OUT: Pre-existing test failure - clean_date doesn't raise ValueError for invalid dates
