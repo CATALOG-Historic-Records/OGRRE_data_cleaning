@@ -295,6 +295,43 @@ def clean_date(date_str: str) ->datetime | None:
 
     return res.strftime('%m/%d/%Y')
 
+def clean_lab_id(s: str) -> str | None:
+    """
+    Cleans lab id field for newts team"""
+
+    if not isinstance(s, str):
+        return None
+
+    s_clean = s.strip().lower().rstrip('.')
+    if not s_clean:
+            return None
+
+    # ensure lab id matches regex syntax below
+    # [ALPHANUMERIC CHARS]-[NUMBER]
+    # match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?[A-Z]?\b', s_clean)
+    match = re.search(r'^[a-zA-Z0-9]+-\d+$', s_clean)
+    if not match:
+        return None
+    else:
+        return s_clean
+
+# fuzzy string checking function
+def levenshtein_distance(s1: str, s2: str) -> int:
+    if len(s1) < len(s2):
+        return levenshtein_distance(s2, s1)
+    if len(s2) == 0:
+        return len(s1)
+    previous_row = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        current_row = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = previous_row[j + 1] + 1
+            deletions = current_row[j] + 1
+            substitutions = previous_row[j] + (c1 != c2)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+    return previous_row[-1]
+
 def clean_units(s: str) -> str | None:
     """
     Cleans a units string and checks it against standard allowed units:
@@ -318,24 +355,6 @@ def clean_units(s: str) -> str | None:
     
     # Define mapping of common variants to standard allowed units
     mapping = {
-        # Feet
-        # "feet": "Feet",
-        # "ft": "Feet",
-        # "foot": "Feet",
-        # "'": "Feet",
-        
-        # Inches
-        # "inches": "Inches",
-        # "in": "Inches",
-        # "inch": "Inches",
-        # '"': "Inches",
-        
-        # Pounds per Foot
-        # "pounds per foot": "Pounds per Foot",
-        # "lbs/ft": "Pounds per Foot",
-        # "lb/ft": "Pounds per Foot",
-        # "lbs per foot": "Pounds per Foot",
-        
         # Chemical analysis units
         # mg/L
         "mg/l": "mg/L",
@@ -415,27 +434,10 @@ def clean_units(s: str) -> str | None:
         else:
             if key == s_clean:
                 return val
-                
-    # 3. Fuzzy matching with Levenshtein distance
-    def levenshtein_distance(s1: str, s2: str) -> int:
-        if len(s1) < len(s2):
-            return levenshtein_distance(s2, s1)
-        if len(s2) == 0:
-            return len(s1)
-        previous_row = range(len(s2) + 1)
-        for i, c1 in enumerate(s1):
-            current_row = [i + 1]
-            for j, c2 in enumerate(s2):
-                insertions = previous_row[j + 1] + 1
-                deletions = current_row[j] + 1
-                substitutions = previous_row[j] + (c1 != c2)
-                current_row.append(min(insertions, deletions, substitutions))
-            previous_row = current_row
-        return previous_row[-1]
 
+    # check closest match uzing fuzzy
     best_match = None
     min_dist = 999
-    
     for key, val in mapping.items():
         # Skip very short keys (length <= 1, like quotes) for fuzzy matching to avoid false positives
         if len(key) <= 1:
@@ -448,7 +450,7 @@ def clean_units(s: str) -> str | None:
     # Allow a maximum distance of 2 characters
     if min_dist <= 2:
         return best_match
-        
+
     return s
 
 def clean_epa_methods(s: str) -> str | None:
@@ -502,6 +504,7 @@ def clean_epa_methods(s: str) -> str | None:
                 return f"EPA {allowed}"
                 
     return None
+
 def clean_bool(checkbox_str: str):
     '''
     check if string is valid representation of boolean
