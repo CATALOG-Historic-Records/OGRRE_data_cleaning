@@ -1,0 +1,91 @@
+This document describes the workflow for adding and updating OGRRE Schemas.
+
+Step 1: Fill out a schema spreadsheet.
+	The Schema Template can be found at https://docs.google.com/spreadsheets/d/1LkVCZR-8Ohzv9mUVZbrzZU91a0tIOAD1t-S4t_-tVmc/edit?usp=sharing
+		All schema spreadsheets are currently hosted by jacob.shay.netl@gmail.com
+	Schema spreadsheet requirements:
+		Spreadsheet Name:
+			{Organization} Schema
+
+		Trained Models tab:
+			Processor Type: (Required) [Splitter, Classifier, Extractor]
+				Tells the excel_to_json.py script how to process the spreadsheet.
+			Processor Name: (Required)
+				The exact name of the Google Document AI processor and associated spreadsheet tab.
+				{Organization Identifier}_{Document Type Version}_{Document Type}
+				ISGS_V2_WellCompletion, indicating the processor is for the organization ISGS and the second version of the Well Completion document type.
+			Model Name:
+				The name of the trained model for the processor. Can be looked up later in "Deploy & use" under "Name" for the model row.
+				V{Pretrained foundation model numbers underscore separator}-{Two digit counter}
+				V1_5-02, indicating the model is the second trained using the foundation model pretrained-foundation-model-v1.5-2025-05-05
+			F1 Score:
+				The overall F1 Score of the trained model. The latest model evaluation can be looked up later in "Evaluate & test" by selecting the model in the dropdown and identified as "F1 Score" or in "Deploy & use" under "F1 score" for each model's row.
+			Primary Model: [primary] (Required)
+				Tags the primary trained model for the processor. Only one model for each processor should be tagged.
+			Training Documents:
+				Use this to record how many documents were used for training the model. The number of documents cannot be looked up later, found in "Label & Build" under "Labeled" {} training.
+			Testing Documents:
+				Use this to record how many documents were used for testing the model. The number of documents used in the latest model evaluation can be looked up later in "Evaluate & test" by selecting the model in the dropdown then clicking "View full evaluation" identified as "Test documents" or the current number of testing documents can be found on "Label & Build" under "Labeled" {} testing.
+			Date Trained:
+				The date the model started training. Can be looked up later in "Deploy & use" by clicking the model's "French Fry" then selecting "View details" and identified as "Created".
+			Foundation Model: [Custom,pretrained-foundation-model-v{}]
+				Identifies if/which foundation model was used when training the model. Custom is used when no pretrained foundation model was used. The foundation model can be looked up later in "Evaluate & test" by selecting the model in the dropdown and identified as "Base version ID".
+			Processor ID: (Required)
+				The unique identifier of the processor used to process documents. Found in "Overview" and identified as "ID".
+			Model ID: (Required)
+				The unique identifier of the model used to process documents. Found in "Deploy & use" under "Version ID" for the model row.
+
+		{Processor Name} tab:
+			Google Processor Name:
+				The exact name of the Google Document AI processor.
+			OGRRE Document Type: 
+				Suggested alias for the document type.
+			Page Order: (Required)
+				Indicates the display order of field in the OGRRE UI. Starting from 1 for the top-left most field, count/index the fields moving from left to right, top to bottom.
+			Name: (Required)
+				The exact name of the field in the processor schema. Fields within a Parent/Table are indicated by {Parent Label Name}::{Field Name}
+			Alias:
+				Not implemented. The OGRRE UI field display name.
+			Units:
+				Not implemented. The numerical units of the field.
+			Google Description Prompt:
+				The field description within the Google schema. Found in "Get started" under "Description" for the field row.
+			Google Data Type: (Required) [Parent, Plain text, Number, Currency, Money, Datetime, Address, Checkbox]
+				The field data type within the Google schema. Found in "Get started" under "Data type" for the field row.
+			Occurrence: (Required) [Optional once, Optional multiple]
+				The field occurrence within the Google schema. Controls the number of times a field is allowed. Found in "Get started" under "Occurrence" for the field row. Do not use the "Required" occurrences.
+			Grouping:
+				Not implemented. Tags used to group mutually exclusive fields, such as separate "Yes" and "No" checkboxes.
+			Database Data Type: (Required) [Table, str, bool, date, int, float]
+				The OGRRE database storage type.
+			Cleaning Function: (Required) Up to date function names can be found in .\OGRRE_data_cleaning\src\ogrre_data_cleaning\clean.py
+				The cleaning function to apply to the field inside of OGRRE. Use "None" for apply no cleaning function.
+			Accepted Range:
+				Not implemented. The regex code of accepted values and characters.
+			Field Specific Notes:
+				Not implemented. Notes relating to the field.
+			Model Enabled:
+				Assists with tracking labels that do or do not meet model training requirements when label need to be disabled.
+			{Model Name} Fscores:
+				Individual field F1 scores for the model {Modle Name}. The latest model evaluation can be looked up later in "Evaluate & test" by selecting the model in the dropdown then clicking "View full evaluation" under "F1 score" for the field row.
+
+Step 2: Download as excel into local copy of the Schema-Updates branch of OGRRE_data_cleaning.
+	In the folder:
+		..\OGRRE_data_cleaning\src\ogrre_data_cleaning\processor_schemas
+
+Step 3: Run excel_to_json.py
+	New organization:
+		New organization spreadsheets currently need to be added manually at the bottom under  if __name__ == '__main__'
+		This will create the folder {Organization}_extractors via:
+			if isinstance(Organization,str): Organization = Organization.lower()	
+			else: Organization = excel_file_path[:excel_file_path.find(' ')].lower()
+	
+Step 4: Push to Git branch and create a PR with 1+ approver then merge.
+	I usually have Mike as the approver.
+
+Step 5: Email Mike CC Greg and Dan 
+	Request to Create/ Rerun:
+		The Organization
+			The Project
+				The Extractor Processor name 
+					the Bucket Folder path containing the documents to process.

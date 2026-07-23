@@ -1,0 +1,9 @@
+Schema Spreadsheets:
+	Template: https://docs.google.com/spreadsheets/d/1LkVCZR-8Ohzv9mUVZbrzZU91a0tIOAD1t-S4t_-tVmc/edit?usp=sharing
+	ISGS: https://docs.google.com/spreadsheets/d/15cdm_nWcLPr3ud3HKeAeqQoTbIc9yGvT/edit?usp=sharing&ouid=108695353317452180405&rtpof=true&sd=true
+	Calgem: https://docs.google.com/spreadsheets/d/1fVxpFm5bQWPT4WAR96lDnIkwVP5jFmIH19eRFM_a2sM/edit?usp=sharing
+	Osage:https://docs.google.com/spreadsheets/d/1iGWV4I0qGJYUUpQs8_0eQsyoWLtk3F6nXircHsPvwaA/edit?usp=sharing
+	NEWTS: https://docs.google.com/spreadsheets/d/1ndieo6OSNyu2Ncs716wHgnCHWx7QwjeybUhZj5zVWPA/edit?usp=sharing
+	Texas RRC:https://docs.google.com/spreadsheets/d/1Q3owgC6frDY7kcV-WGE4kZJStfo5JjTEppnbqZ3zfjc/edit?usp=sharing
+
+All schema spreadsheets are currently hosted by jacob.shay.netl@gmail.com
