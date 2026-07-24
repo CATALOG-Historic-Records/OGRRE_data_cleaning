@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal, clean_depth
+from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal, clean_depth, newts_clean_units, newts_clean_epa_methods
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -142,8 +142,8 @@ def test_clean_date(input_value, expected):
     (None, None),
     (123, None),
 ])
-def test_clean_units(input_value, expected):
-    output = clean_units(input_value)
+def test_newts_clean_units(input_value, expected):
+    output = newts_clean_units(input_value)
     assert output == expected
 
 @pytest.mark.unit
@@ -164,8 +164,8 @@ def test_clean_units(input_value, expected):
     (None, None),
     (123, None),
 ])
-def test_clean_epa_methods(input_value, expected):
-    output = clean_epa_methods(input_value)
+def test_newts_clean_epa_methods(input_value, expected):
+    output = newts_clean_epa_methods(input_value)
     assert output == expected
 
 # ## TODO: should this raise an error?

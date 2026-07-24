@@ -295,9 +295,12 @@ def clean_date(date_str: str) ->datetime | None:
 
     return res.strftime('%m/%d/%Y')
 
-def clean_lab_id(s: str) -> str | None:
+def newts_clean_lab_id(s: str) -> str | None:
     """
-    Cleans lab id field for newts team"""
+    Cleans lab id field for newts team.
+    Does not seem to every company lab_id.
+    For example MountainResearch and TestAmerica incorrect. 
+    """
 
     if not isinstance(s, str):
         return None
@@ -332,7 +335,7 @@ def levenshtein_distance(s1: str, s2: str) -> int:
         previous_row = current_row
     return previous_row[-1]
 
-def clean_units(s: str) -> str | None:
+def newts_clean_units(s: str) -> str | None:
     """
     Cleans a units string and checks it against standard allowed units:
     ["Feet", "Inches", "Pounds per Foot", "Sacks", "Hrs", "BBls", "MMCF"].
@@ -453,7 +456,7 @@ def clean_units(s: str) -> str | None:
 
     return s
 
-def clean_epa_methods(s: str) -> str | None:
+def newts_clean_epa_methods(s: str) -> str | None:
     """
     Cleans an EPA method string, matching it against standard allowed EPA methods.
     
@@ -476,7 +479,7 @@ def clean_epa_methods(s: str) -> str | None:
         
     method_code = match.group(0)
     
-    # List of allowed EPA methods
+    # Set of allowed EPA methods
     allowed_methods = {
         "8260", "8260B", "8260C", "8260D",
         "8270", "8270D", "8270E",
@@ -502,6 +505,22 @@ def clean_epa_methods(s: str) -> str | None:
         for allowed in allowed_methods:
             if allowed.startswith(base_code):
                 return f"EPA {allowed}"
+
+    # check closest match uzing fuzzy
+        best_match = None
+        min_dist = 999
+        for key in allowed_methods:
+            # Skip very short keys (length <= 1, like quotes) for fuzzy matching to avoid false positives
+            if len(key) <= 1:
+                continue
+            dist = levenshtein_distance(s_clean, key)
+            if dist < min_dist:
+                min_dist = dist
+                best_match = key
+                
+        # Allow a maximum distance of 2 characters
+        if min_dist <= 2:
+            return best_match
                 
     return None
 
