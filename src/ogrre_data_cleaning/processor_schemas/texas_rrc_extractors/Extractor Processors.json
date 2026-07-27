@@ -1,0 +1,15 @@
+[
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Texas_RRC_Front_Page",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.969,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 100.0,
+        "Testing Documents": 30.0,
+        "Date Trained": 1784764800000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "dd6546dce9424f9",
+        "Model ID": "dc2cd5788d240aac"
+    }
+]

@@ -24,11 +24,18 @@ def write_json(Dataframe, Filepath, key_replacements=None):
     with open(Filepath, "w", encoding="utf-8") as json_file:
         json.dump(json_dict, json_file, indent=4, default=str)
 
-def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None):
+def Excel_to_Json(excel_file_path, Test_Sheet_Names = False, Organization = None):
     if isinstance(Organization,str):
-        Organization = Organization.lower()
+        Organization = Organization
     else:
-        Organization = excel_file_path[:excel_file_path.find(' ')].lower()
+        index = max(excel_file_path.rfind(" Schema.xlsx"), excel_file_path.rfind(" schema.xlsx"))
+        if index == -1:
+            index = excel_file_path.rfind(".xlsx")
+            
+        Organization = excel_file_path[:index]
+        
+    Organization = Organization.lower().strip().replace(" ", "_")
+        
     # Load the Excel file
     excel_file = pd.ExcelFile(excel_file_path)
     sheet_names = excel_file.sheet_names
@@ -71,7 +78,7 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
     for processor in processor_name_replacements:
         Extractors.loc[Extractors['Processor Name'] == processor,'Processor Name'] = processor_name_replacements[processor]
     Extractors = Extractors.astype({'Training Documents': 'float64','Testing Documents': 'float64'})
-    write_json(Dataframe = Extractors.reset_index()[Extractors.columns], Filepath = f"{Organization}_extractors/Extractor Processors.json", key_replacements=key_replacements)
+    write_json(Dataframe = Extractors.reset_index()[Extractors.columns], Filepath = f"{extractors_dir}/Extractor Processors.json", key_replacements=key_replacements)
     
     for processor in Extractors["Processor Name"]:
         if processor in processor_name_replacements.values():
@@ -80,12 +87,12 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
         else:
             processor_df = pd.read_excel(excel_file_path, sheet_name=processor)
         processor_df = processor_df.astype({'Page Order Sort': 'float64'})
-        write_json(Dataframe =  processor_df, Filepath = f"{Organization}_extractors/{processor}.json", key_replacements=key_replacements)
+        write_json(Dataframe =  processor_df, Filepath = f"{extractors_dir}/{processor}.json", key_replacements=key_replacements)
         try: processor_df.close()
         except:pass
     try:
         Obsolete_df = pd.read_excel(excel_file_path, sheet_name="ObsoleteFields")
-        write_json(Dataframe =  Obsolete_df, Filepath = f"{Organization}_extractors/01Obsolete Fields.json", key_replacements=key_replacements)
+        write_json(Dataframe =  Obsolete_df, Filepath = f"{extractors_dir}/01Obsolete Fields.json", key_replacements=key_replacements)
     except:
         pass
     try: excel_file.close()
@@ -96,10 +103,12 @@ def Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_She
     except:pass
         
 if __name__ == '__main__':
-    Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None)
-    Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False, Organization = None)
-    Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False, Organization = None)
-    Excel_to_Json(excel_file_path = "NEWTS Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    for excel_file in [filename for dirpath, _, filenames in os.walk("./") for filename in filenames if filename.lower().endswith(".xlsx")]:
+        Excel_to_Json(excel_file_path = excel_file, Test_Sheet_Names = False, Organization = None)
+    # Excel_to_Json(excel_file_path = "ISGS Well Completion Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    # Excel_to_Json(excel_file_path = "CALGEM Well Summary Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    # Excel_to_Json(excel_file_path = "Osage Nation Schema.xlsx", Test_Sheet_Names = False, Organization = None)
+    # Excel_to_Json(excel_file_path = "NEWTS Schema.xlsx", Test_Sheet_Names = False, Organization = None)
     # """OSAGE NATION SCHEMA: 
     #     Following running this script two occurences of 'Osage_V1_Final_Report_Compl_Dep' should be edited to be 
     #     'Osage_V1_Final_Report_Compl_Deep'. 
