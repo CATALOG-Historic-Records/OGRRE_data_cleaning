@@ -1,5 +1,7 @@
 [
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.909,
         "T1 Fscores": 0.87,
         "T2 Fscores": 0.909,
@@ -19,6 +21,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.952,
         "T1 Fscores": 0.651,
         "T2 Fscores": 0.905,
@@ -38,6 +42,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.683,
         "T1 Fscores": 0.711,
         "T2 Fscores": 0.844,
@@ -57,6 +63,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.789,
         "T1 Fscores": 1.0,
         "T2 Fscores": 0.957,
@@ -76,6 +84,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.757,
         "T1 Fscores": 0.909,
         "T2 Fscores": 0.933,
@@ -95,6 +105,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.75,
         "T1 Fscores": 0.667,
         "T2 Fscores": 0.909,
@@ -114,6 +126,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.571,
         "T1 Fscores": 0.522,
         "T2 Fscores": 0.5,
@@ -133,6 +147,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.75,
         "T1 Fscores": 0.588,
         "T2 Fscores": 0.828,
@@ -152,6 +168,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.636,
         "T1 Fscores": 0.609,
         "T2 Fscores": 0.545,
@@ -171,6 +189,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -190,6 +210,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.545,
         "T1 Fscores": 0.333,
         "T2 Fscores": 0.258,
@@ -209,6 +231,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.69,
         "T1 Fscores": 0.345,
         "T2 Fscores": 0.19,
@@ -228,6 +252,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.955,
         "T1 Fscores": 0.857,
         "T2 Fscores": 0.884,
@@ -247,6 +273,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.909,
         "T1 Fscores": 0.696,
         "T2 Fscores": 0.826,
@@ -266,6 +294,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Sidetracks": null,
         "V1 Fscores": 0.778,
         "T1 Fscores": 0.683,
         "T2 Fscores": 0.7,
@@ -285,6 +315,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.837,
         "T1 Fscores": 0.957,
         "T2 Fscores": 0.955,
@@ -304,6 +336,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.811,
         "T1 Fscores": 0.7,
         "T2 Fscores": 0.667,
@@ -323,6 +357,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 1.0,
         "T2 Fscores": 1.0,
@@ -342,6 +378,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 1.0,
         "T2 Fscores": 1.0,
@@ -361,6 +399,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 1.0,
         "T2 Fscores": 1.0,
@@ -380,6 +420,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.909,
         "T1 Fscores": 0.783,
         "T2 Fscores": 0.737,
@@ -399,6 +441,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.8,
         "T1 Fscores": 0.643,
         "T2 Fscores": 0.75,
@@ -418,6 +462,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.947,
         "T1 Fscores": 0.95,
         "T2 Fscores": 0.9,
@@ -431,12 +477,14 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "float",
-        "cleaning_function": "string_to_float",
+        "cleaning_function": "clean_depth",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": 0.821,
         "T1 Fscores": 0.769,
         "T2 Fscores": 0.667,
@@ -456,6 +504,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -469,12 +519,14 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "float",
-        "cleaning_function": "string_to_float",
+        "cleaning_function": "clean_depth",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -494,6 +546,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "production_testing",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -513,6 +567,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "production_testing",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -532,6 +588,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": 0.929,
         "T1 Fscores": 0.716,
         "T2 Fscores": 0.909,
@@ -551,6 +609,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": 0.788,
         "T1 Fscores": 0.519,
         "T2 Fscores": 0.839,
@@ -570,6 +630,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 0.824,
         "T2 Fscores": 0.95,
@@ -583,12 +645,14 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "float",
-        "cleaning_function": "string_to_float",
+        "cleaning_function": "clean_depth",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": 0.974,
         "T1 Fscores": 0.765,
         "T2 Fscores": 0.923,
@@ -608,6 +672,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Sidetracks": null,
         "V1 Fscores": 0.773,
         "T1 Fscores": 0.764,
         "T2 Fscores": 0.743,
@@ -627,6 +693,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Sidetracks": null,
         "V1 Fscores": 0.514,
         "T1 Fscores": 0.416,
         "T2 Fscores": 0.431,
@@ -646,6 +714,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Sidetracks": null,
         "V1 Fscores": 0.943,
         "T1 Fscores": 0.933,
         "T2 Fscores": 0.925,
@@ -665,6 +735,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Sidetracks": null,
         "V1 Fscores": 0.835,
         "T1 Fscores": 0.947,
         "T2 Fscores": 0.884,
@@ -684,6 +756,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -703,6 +777,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -722,6 +798,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -741,6 +819,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -760,6 +840,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Sidetracks": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -779,6 +861,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": null,
+        "M Sidetracks": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 0.955,
         "T2 Fscores": 0.955,
@@ -798,6 +882,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": null,
+        "M Sidetracks": null,
         "V1 Fscores": 0.789,
         "T1 Fscores": 0.9,
         "T2 Fscores": 0.923,
@@ -817,6 +903,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": null,
+        "M Sidetracks": null,
         "V1 Fscores": 0.857,
         "T1 Fscores": 0.8,
         "T2 Fscores": 0.8,
