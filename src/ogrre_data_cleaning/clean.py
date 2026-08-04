@@ -635,7 +635,16 @@ def clean_size_string(size_str):
     size_str = str(size_str)
     
     # Remove common suffixes and extra characters
-    size_str = size_str.replace('"', '').replace('″', '').replace('OD', '').strip()
+    for mark in ['"', "'", '’', '‘', '′', '″', '“', '”']:
+        size_str = size_str.replace(mark, '')
+    # Remove OD suffix variants like OD, O.D., or O D.
+    size_str = re.sub(r'(?<![a-z])o\.?\s*d\.?(?![a-z])', '', size_str, flags=re.IGNORECASE)
+    # Remove inch unit words like in, inch, or inches.
+    size_str = re.sub(r'\b(?:inches|inch|in)\.?(?![a-z])', '', size_str, flags=re.IGNORECASE)
+    # Remove suffixes from fraction denominators, e.g. 7/8ths -> 7/8.
+    size_str = re.sub(r'(/\d+)(?:st|nd|rd|ths?|s)\b', r'\1', size_str, flags=re.IGNORECASE)
+    # Collapse whitespace left behind by suffix cleanup.
+    size_str = re.sub(r'\s+', ' ', size_str).strip()
     
     # If multiple sizes are given (comma-separated), take the first one
     if ',' in size_str:
@@ -741,8 +750,8 @@ def convert_hole_size_to_decimal(size_str):
         size_str = size_str.replace(m_frac, frac_ascii)
     print(f"DEBUG: After Unicode replacement - size_str='{size_str}', type={type(size_str)}")
     
-    # Remove any remaining whitespace and quotes
-    size_str = size_str.strip().strip('"\'')
+    # Remove any remaining whitespace
+    size_str = size_str.strip()
     
     # Check for common hole sizes first (without spaces)
     common_hole_sizes = {
