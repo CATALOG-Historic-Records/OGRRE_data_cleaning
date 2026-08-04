@@ -8,7 +8,7 @@
         "Training Documents": 114.0,
         "Testing Documents": 56.0,
         "Date Trained": 1743984000000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "dea734185d2763e7",
         "Model ID": "f3857de243488cf1"
     },
@@ -34,7 +34,7 @@
         "Training Documents": 139.0,
         "Testing Documents": 113.0,
         "Date Trained": 1743724800000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "b0cd461b8a51afca",
         "Model ID": "f3cd6a9e298241b9"
     },
@@ -47,7 +47,7 @@
         "Training Documents": 49.0,
         "Testing Documents": 46.0,
         "Date Trained": 1743984000000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "ba1b9b209092eae4",
         "Model ID": "5548c80129c145a5"
     },
@@ -60,7 +60,7 @@
         "Training Documents": 100.0,
         "Testing Documents": 103.0,
         "Date Trained": 1744070400000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "e60bb28febe63e5e",
         "Model ID": "967a131ab9e5b8dc"
     },
@@ -73,7 +73,7 @@
         "Training Documents": 100.0,
         "Testing Documents": 53.0,
         "Date Trained": 1744156800000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "f00c66bab4fa8d38",
         "Model ID": "c18d00b9fb0efbfd"
     },
@@ -99,7 +99,7 @@
         "Training Documents": 17.0,
         "Testing Documents": 23.0,
         "Date Trained": 1744588800000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "dacfda98cad81d02",
         "Model ID": "b7ba4d977748c58f"
     },
@@ -112,7 +112,7 @@
         "Training Documents": 70.0,
         "Testing Documents": 47.0,
         "Date Trained": 1744588800000,
-        "Foundation Model": "pretrained-foundation-model-v1.4-2024-02-05",
+        "Foundation Model": "pretrained-foundation-model-v1.4-2025-02-05",
         "Processor ID": "d97318f7eea17aca",
         "Model ID": "505e5d5fd45b3894"
     }

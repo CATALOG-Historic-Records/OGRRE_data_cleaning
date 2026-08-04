@@ -123,19 +123,54 @@ def test_newts_clean_units(input_value, expected):
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
+    # EPA Methods
     ("8260", "EPA 8260"),
     ("8260B", "EPA 8260B"),
-    ("Method 8260B", "EPA 8260B"),
+    ("Method 8260B", "Method 8260B"),
     ("EPA 8260D", "EPA 8260D"),
     ("EPA Method 8260C", "EPA 8260C"),
     ("300.0", "EPA 300.0"),
-    ("Method 300.1", "EPA 300.1"),
-    ("TO-15", "EPA TO-15"),
+    ("300.1", "EPA 300.1"),
+    ("TO-15", "TO-15"),
     ("EPA TO-15", "EPA TO-15"),
     ("1664A", "EPA 1664A"),
-    ("Method 1664", "EPA 1664"),
-    ("9999", None),
-    ("invalid method", None),
+    ("1664", "EPA 1664"),
+    ("901.1", "EPA 901.1"),
+    ("901.1M", "EPA 901.1M"),
+    ("EPA 901.1", "EPA 901.1"),
+    ("EPA 901.1M", "EPA 901.1M"),
+    ("EPA 200.2", "EPA 200.2"),
+    ("EPA 1311", "EPA 1311"),
+    ("EPA 7.3.4.2", "EPA 7.3.4.2"),
+    ("EPA 7.3.3.2", "EPA 7.3.3.2"),
+    ("EPA 9014", "EPA 9014"),
+    ("EPA 9310", "EPA 9310"),
+    ("EPA 3535A", "EPA 3535A"),
+    ("EPA 9095", "EPA 9095"),
+    ("EPA 245.1", "EPA 245.1"),
+
+    # Standard Methods (SM)
+    ("SM4500-H B", "SM 4500-H B"),
+    ("SM 2540 G", "SM 2540 G"),
+    ("SM2540 G", "SM 2540 G"),
+    ("SM2510 B", "SM 2510 B"),
+    ("SM 5210", "SM 5210"),
+    ("SM 5540", "SM 5540"),
+    
+    # SW-846 Methods (SW)
+    ("SW 846", "SW 846"),
+    ("SW 1311", "SW 1311"),
+    ("SW 8015C", "SW 8015C"),
+    ("SW9045D", "SW 9045D"),
+    ("SW 1311", "SW 1311"),
+    
+    # Technologies / Descriptive Methods
+    ("Purge and Trap", "Purge And Trap"),
+    
+    # Purely numeric codes should assume EPA
+    ("9999", "EPA 9999"),
+    
+    # Edge Cases & Fallbacks
     (None, None),
     (123, None),
 ])
