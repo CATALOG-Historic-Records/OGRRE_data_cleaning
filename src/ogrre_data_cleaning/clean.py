@@ -458,70 +458,67 @@ def newts_clean_units(s: str) -> str | None:
 
 def newts_clean_epa_methods(s: str) -> str | None:
     """
-    Cleans an EPA method string, matching it against standard allowed EPA methods.
+    Cleans an EPA, Standard Method (SM), or SW-846 (SW) method string, standardizing it.
     
     Args:
-        s (str): String containing an EPA method
+        s (str): String containing a method
         
     Returns:
-        str: Standardized EPA method name (e.g., "EPA 8260B"), or None
+        str: Standardized method name (e.g., "EPA 8260B", "SM 4500-H B"), or None
     """
     if not isinstance(s, str):
         return None
         
-    s_clean = s.strip().upper()
-    
-    # Try to extract the core method code using regex
-    # Matches: 8260, 8260B, 300.0, 200.7, TO-15, TO-15A, 1664, 1664A
-    match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?[A-Z]?\b', s_clean)
-    if not match:
+    s_clean = s.strip()
+    if not s_clean:
         return None
         
-    method_code = match.group(0)
+    s_upper = s_clean.upper()
     
-    # Set of allowed EPA methods
-    allowed_methods = {
-        "8260", "8260B", "8260C", "8260D",
-        "8270", "8270D", "8270E",
-        "6010", "6010B", "6010C", "6010D",
-        "7470", "7470A", "7471", "7471B",
-        "8081", "8081A", "8081B",
-        "8082", "8082A",
-        "1664", "1664A", "1664B",
-        "300.0", "300.1",
-        "200.7", "200.8",
-        "524.2", "524.3",
-        "TO-15"
-    }
-    
-    if method_code in allowed_methods:
-        return f"EPA {method_code}"
+    # 1. Check for Standard Methods (SM)
+    # Match: "SM 4500-H B", "SM2540 G", "SM 5210", "SM 5540", etc.
+    sm_match = re.search(r'\bSM\s*(\d+(?:-\w+)?(?:\s+[A-Z])?)\b', s_clean, re.IGNORECASE)
+    if sm_match:
+        code = sm_match.group(1).strip()
+        code = re.sub(r'\s+', ' ', code)
+        return f"SM {code}"
         
-    # If the exact code with suffix isn't found, try without suffix (e.g. 8260 instead of 8260B)
-    base_match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?\b', method_code)
-    if base_match:
-        base_code = base_match.group(0)
-        # Find any allowed method that starts with the base code
-        for allowed in allowed_methods:
-            if allowed.startswith(base_code):
-                return f"EPA {allowed}"
+    # 2. Check for SW-846 Methods
+    # Match: "SW-846 1311", "SW 8015C", "SW9045D"
+    sw_match = re.search(r'\b(?:SW[-_]?846|SW)\s*(\d+(?:\.\d+)*[A-Z]?)\b', s_clean, re.IGNORECASE)
+    if sw_match:
+        code = sw_match.group(1).strip()
+        return f"SW {code}"
+    # Special case for "SW 846" / "SW-846"
+    if re.search(r'\bSW[-_]?846\b', s_clean, re.IGNORECASE):
+        return "SW-846"
 
-    # check closest match uzing fuzzy
-        best_match = None
-        min_dist = 999
-        for key in allowed_methods:
-            # Skip very short keys (length <= 1, like quotes) for fuzzy matching to avoid false positives
-            if len(key) <= 1:
-                continue
-            dist = levenshtein_distance(s_clean, key)
-            if dist < min_dist:
-                min_dist = dist
-                best_match = key
-                
-        # Allow a maximum distance of 2 characters
-        if min_dist <= 2:
-            return best_match
-                
+    # 3. Check for EPA Methods
+    # Match: "EPA 200.2", "EPA 7.3.4.2", "EPA Method 3535A", etc.
+    epa_match = re.search(r'\bEPA(?:\s+METHOD)?\s*(\d+(?:\.\d+)*[A-Z]?)\b', s_clean, re.IGNORECASE)
+    if epa_match:
+        code = epa_match.group(1).strip()
+        return f"EPA {code}"
+        
+    # 4. Check for purely numeric codes (assume EPA by default if it's just a method number like 8260, 200.7)
+    numeric_match = re.match(r'^\s*(\d+(?:\.\d+)*[A-Z]?)\s*$', s_clean)
+    if numeric_match:
+        code = numeric_match.group(1).strip()
+        return f"EPA {code}"
+        
+    # 5. Descriptive names / technologies (like "Purge and Trap")
+    cleaned_desc = re.sub(r'\s+', ' ', s_clean).strip()
+    known_descriptive = {
+        "purge and trap", "gravimetric", "titration", "gamma spectroscopy", 
+        "semivolatile organic compounds", "volatile organic compounds"
+    }
+    if cleaned_desc.lower() in known_descriptive:
+        return cleaned_desc.title()
+        
+    # Default fallback for longer descriptive strings
+    if len(cleaned_desc) > 2 and any(char.isalpha() for char in cleaned_desc):
+        return cleaned_desc
+        
     return None
 
 def clean_bool(checkbox_str: str):
