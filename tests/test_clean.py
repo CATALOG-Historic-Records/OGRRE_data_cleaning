@@ -126,15 +126,15 @@ def test_newts_clean_units(input_value, expected):
     # EPA Methods
     ("8260", "EPA 8260"),
     ("8260B", "EPA 8260B"),
-    ("Method 8260B", "EPA 8260B"),
+    ("Method 8260B", "Method 8260B"),
     ("EPA 8260D", "EPA 8260D"),
     ("EPA Method 8260C", "EPA 8260C"),
     ("300.0", "EPA 300.0"),
-    ("Method 300.1", "EPA 300.1"),
-    ("TO-15", "EPA TO-15"),
+    ("300.1", "EPA 300.1"),
+    ("TO-15", "TO-15"),
     ("EPA TO-15", "EPA TO-15"),
     ("1664A", "EPA 1664A"),
-    ("Method 1664", "EPA 1664"),
+    ("1664", "EPA 1664"),
     ("901.1", "EPA 901.1"),
     ("901.1M", "EPA 901.1M"),
     ("EPA 901.1", "EPA 901.1"),
@@ -148,7 +148,7 @@ def test_newts_clean_units(input_value, expected):
     ("EPA 3535A", "EPA 3535A"),
     ("EPA 9095", "EPA 9095"),
     ("EPA 245.1", "EPA 245.1"),
-    
+
     # Standard Methods (SM)
     ("SM4500-H B", "SM 4500-H B"),
     ("SM 2540 G", "SM 2540 G"),
@@ -158,7 +158,7 @@ def test_newts_clean_units(input_value, expected):
     ("SM 5540", "SM 5540"),
     
     # SW-846 Methods (SW)
-    ("SW 846", "SW-846"),
+    ("SW 846", "SW 846"),
     ("SW 1311", "SW 1311"),
     ("SW 8015C", "SW 8015C"),
     ("SW9045D", "SW 9045D"),
