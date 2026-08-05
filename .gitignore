@@ -6,3 +6,4 @@ import-debug.ipynb
 summary.md
 .coverage
 /src/ogrre_data_cleaning/processor_schemas/.spyproject
+*.egg-info

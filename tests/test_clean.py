@@ -227,8 +227,21 @@ def test_clean_bool(input_value, expected):
     ("5\u215E", 5.875),
     ("8⅝", 8.625),
     ("9⅝", 9.625),
-    ("13⅜", 13.375)
-    # ("8 3/4\" OD", 8.75),  # COMMENTED OUT: Pre-existing bug - can't handle OD suffix, returns None
+    ("13⅜", 13.375),
+    ("8 3/4\" OD", 8.75),
+    ("7 7/8ths", 7.875),
+    ("8 1/2’", 8.5),
+    ("8 1/2'", 8.5),
+    ("8 3/4 od", 8.75),
+    ("8 3/4 O.D.", 8.75),
+    ("8 3/4 in.", 8.75),
+    ("8 3/4 inches", 8.75),
+    ("8 3/4”", 8.75),
+    ("8 3/4′", 8.75),
+    ("7-7/8th", 7.875),
+    ("7-7/8s", 7.875),
+    ("8 1/2’ OD", 8.5),
+    (" 8 3/4\" OD ", 8.75),
 ])
 def test_convert_hole_size_to_decimal(input_value, expected):
     output = convert_hole_size_to_decimal(input_value)
