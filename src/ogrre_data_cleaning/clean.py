@@ -1,17 +1,10 @@
 import re
-from pathlib import Path
 from datetime import datetime
 import dateutil.parser as date_parser
-import torch
-import numpy as np
 import pandas as pd
 import unicodedata
 
-from ogrre_data_cleaning.models.encoder import Encoder, Classifier
-from ogrre_data_cleaning.models.dataloaders import HoleSize
-from ogrre_data_cleaning.models.checkpoints import get_checkpoint_path
-
-def string_to_date(s: str):
+def string_to_date(s: str, options={}):
     """
     Converts a string to a date after removing non-date characters.
     """
@@ -41,7 +34,7 @@ def string_to_date(s: str):
     except ValueError:
         return None
 
-def string_to_float(s: str):
+def string_to_float(s: str, options={}):
     """
     Converts a string to a float after removing non-numeric characters.
     
@@ -73,7 +66,7 @@ def string_to_float(s: str):
     except ValueError:
         return None
 
-def string_to_int(s: str):
+def string_to_int(s: str, options={}):
     """
     Converts a string to an integer after removing non-numeric characters.
     
@@ -105,7 +98,22 @@ def string_to_int(s: str):
     except ValueError:
         return None
 
-def llm_clean(s, model_name='holesize', model_version='0'):
+def _load_llm_dependencies():
+    try:
+        import numpy as np
+        import torch
+        from ogrre_data_cleaning.models.encoder import Encoder, Classifier
+        from ogrre_data_cleaning.models.dataloaders import HoleSize
+        from ogrre_data_cleaning.models.checkpoints import get_checkpoint_path
+    except ImportError as exc:
+        raise ImportError(
+            "llm_clean requires optional LLM dependencies. "
+            "Install them with: pip install 'ogrre_data_cleaning[llm]'"
+        ) from exc
+
+    return np, torch, Encoder, Classifier, HoleSize, get_checkpoint_path
+
+def llm_clean(s, model_name='holesize', model_version='0', options={}):
     """
     Converts a string to desired final data form for various pre-trained 
     language models.
@@ -121,6 +129,15 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     # If input is already a cleaned value (assuming it's a string), return it
     if not isinstance(s, float):
         return s
+
+    (
+        np,
+        torch,
+        Encoder,
+        Classifier,
+        HoleSize,
+        get_checkpoint_path,
+    ) = _load_llm_dependencies()
     
     # Check devices
     device = 'cpu'
@@ -174,7 +191,7 @@ def llm_clean(s, model_name='holesize', model_version='0'):
     
     return dataset.classes[y_pred]
 
-def clean_date_DEPRECATED(date_str: str) -> datetime | None:
+def clean_date_DEPRECATED(date_str: str, options={}) -> datetime | None:
     """
     Clean and standardize date strings into datetime objects.
     
@@ -255,7 +272,7 @@ def clean_date_DEPRECATED(date_str: str) -> datetime | None:
             
     return None
 
-def clean_date(date_str: str) ->datetime | None:
+def clean_date(date_str: str, options={}) ->datetime | None:
     """Clean_date function that utilizes dateutil.parser for generalized formatless date conversions.
 
     Cleans and standardizes date string entries into datetime objects.
@@ -295,8 +312,233 @@ def clean_date(date_str: str) ->datetime | None:
 
     return res.strftime('%m/%d/%Y')
 
+def newts_clean_lab_id(s: str, options={}) -> str | None:
+    """
+    Cleans lab id field for newts team.
+    Does not seem to every company lab_id.
+    For example MountainResearch and TestAmerica incorrect. 
+    """
 
-def clean_bool(checkbox_str: str):
+    if not isinstance(s, str):
+        return None
+
+    s_clean = s.strip().lower().rstrip('.')
+    if not s_clean:
+            return None
+
+    # ensure lab id matches regex syntax below
+    # [ALPHANUMERIC CHARS]-[NUMBER]
+    # match = re.search(r'\b(?:TO-)?\d+(?:\.\d+)?[A-Z]?\b', s_clean)
+    match = re.search(r'^[a-zA-Z0-9]+-\d+$', s_clean)
+    if not match:
+        return None
+    else:
+        return s_clean
+
+# fuzzy string checking function
+def levenshtein_distance(s1: str, s2: str) -> int:
+    if len(s1) < len(s2):
+        return levenshtein_distance(s2, s1)
+    if len(s2) == 0:
+        return len(s1)
+    previous_row = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        current_row = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = previous_row[j + 1] + 1
+            deletions = current_row[j] + 1
+            substitutions = previous_row[j] + (c1 != c2)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+    return previous_row[-1]
+
+def newts_clean_units(s: str, options={}) -> str | None:
+    """
+    Cleans a units string and checks it against standard allowed units:
+    ["Feet", "Inches", "Pounds per Foot", "Sacks", "Hrs", "BBls", "MMCF"].
+    
+    If no exact match is found, finds the closest matching unit key using Levenshtein distance
+    with a maximum distance threshold of 2.
+    
+    Args:
+        s (str): String containing a unit
+        
+    Returns:
+        str: One of the allowed unit strings if matched, or None
+    """
+    if not isinstance(s, str):
+        return None
+        
+    s_clean = s.strip().lower().rstrip('.')
+    if not s_clean:
+        return None
+    
+    # Define mapping of common variants to standard allowed units
+    mapping = {
+        # Chemical analysis units
+        # mg/L
+        "mg/l": "mg/L",
+        "mg-l": "mg/L",
+        "mgl": "mg/L",
+        "mg / l": "mg/L",
+        
+        # ug/L
+        "ug/l": "ug/L",
+        "ug-l": "ug/L",
+        "ugl": "ug/L",
+        "ug / l": "ug/L",
+        "µg/l": "ug/L",
+        "µg/L": "ug/L",
+        "µg / l": "ug/L",
+        
+        # mg/kg
+        "mg/kg": "mg/kg",
+        "mg-kg": "mg/kg",
+        "mgkg": "mg/kg",
+        "mg / kg": "mg/kg",
+        
+        # ug/kg
+        "ug/kg": "ug/kg",
+        "ug-kg": "ug/kg",
+        "ugkg": "ug/kg",
+        "ug / kg": "ug/kg",
+        "µg/kg": "ug/kg",
+        "µg / kg": "ug/kg",
+        
+        # ppm
+        "ppm": "ppm",
+        "parts per million": "ppm",
+        
+        # ppb
+        "ppb": "ppb",
+        "parts per billion": "ppb",
+        
+        # %
+        "%": "%",
+        "percent": "%",
+        "pct": "%",
+        
+        # NTU
+        "ntu": "NTU",
+        
+        # SU
+        "su": "SU",
+        "s.u": "SU",
+        "s.u.": "SU",
+        "standard units": "SU",
+        
+        # uS/cm
+        "us/cm": "uS/cm",
+        "µs/cm": "uS/cm",
+        "us / cm": "uS/cm",
+        "umhos/cm": "uS/cm",
+        "umhos": "uS/cm",
+        
+        # pCi/L
+        "pci/l": "pCi/L",
+        "pci / l": "pCi/L"
+    }
+
+    # mg/l, mg/L, mg/kg, ug/L, ug/l, umhos/cm, mg CaCO3/L, pCi/L, pCi/g,
+    
+    # 1. Check exact match
+    if s_clean in mapping:
+        return mapping[s_clean]
+        
+    # 2. Check regex/substring match
+    for key, val in mapping.items():
+        if len(key) > 2:
+            pattern = r'\b' + re.escape(key) + r'\b'
+            if re.search(pattern, s_clean):
+                return val
+        else:
+            if key == s_clean:
+                return val
+
+    # check closest match uzing fuzzy
+    best_match = None
+    min_dist = 999
+    for key, val in mapping.items():
+        # Skip very short keys (length <= 1, like quotes) for fuzzy matching to avoid false positives
+        if len(key) <= 1:
+            continue
+        dist = levenshtein_distance(s_clean, key)
+        if dist < min_dist:
+            min_dist = dist
+            best_match = val
+            
+    # Allow a maximum distance of 2 characters
+    if min_dist <= 2:
+        return best_match
+
+    return s
+
+def newts_clean_epa_methods(s: str, options={}) -> str | None:
+    """
+    Cleans an EPA, Standard Method (SM), or SW-846 (SW) method string, standardizing it.
+    
+    Args:
+        s (str): String containing a method
+        
+    Returns:
+        str: Standardized method name (e.g., "EPA 8260B", "SM 4500-H B"), or None
+    """
+    if not isinstance(s, str):
+        return None
+        
+    s_clean = s.strip()
+    if not s_clean:
+        return None
+        
+    s_upper = s_clean.upper()
+    
+    # 1. Check for Standard Methods (SM)
+    # Match: "SM 4500-H B", "SM2540 G", "SM 5210", "SM 5540", etc.
+    sm_match = re.search(r'\bSM\s*(\d+(?:-\w+)?(?:\s+[A-Z])?)\b', s_clean, re.IGNORECASE)
+    if sm_match:
+        code = sm_match.group(1).strip()
+        code = re.sub(r'\s+', ' ', code)
+        return f"SM {code}"
+        
+    # 2. Check for SW-846 Methods
+    # Match: "SW-846 1311", "SW 8015C", "SW9045D"
+    sw_match = re.search(r'\b(?:SW[-_]?846|SW)\s*(\d+(?:\.\d+)*[A-Z]?)\b', s_clean, re.IGNORECASE)
+    if sw_match:
+        code = sw_match.group(1).strip()
+        return f"SW {code}"
+    # Special case for "SW 846" / "SW-846"
+    if re.search(r'\bSW[-_]?846\b', s_clean, re.IGNORECASE):
+        return "SW-846"
+
+    # 3. Check for EPA Methods
+    # Match: "EPA 200.2", "EPA 7.3.4.2", "EPA Method 3535A", etc.
+    epa_match = re.search(r'\bEPA(?:\s+METHOD)?\s*(\d+(?:\.\d+)*[A-Z]?)\b', s_clean, re.IGNORECASE)
+    if epa_match:
+        code = epa_match.group(1).strip()
+        return f"EPA {code}"
+        
+    # 4. Check for purely numeric codes (assume EPA by default if it's just a method number like 8260, 200.7)
+    numeric_match = re.match(r'^\s*(\d+(?:\.\d+)*[A-Z]?)\s*$', s_clean)
+    if numeric_match:
+        code = numeric_match.group(1).strip()
+        return f"EPA {code}"
+        
+    # 5. Descriptive names / technologies (like "Purge and Trap")
+    cleaned_desc = re.sub(r'\s+', ' ', s_clean).strip()
+    known_descriptive = {
+        "purge and trap", "gravimetric", "titration", "gamma spectroscopy", 
+        "semivolatile organic compounds", "volatile organic compounds"
+    }
+    if cleaned_desc.lower() in known_descriptive:
+        return cleaned_desc.title()
+        
+    # Default fallback for longer descriptive strings
+    if len(cleaned_desc) > 2 and any(char.isalpha() for char in cleaned_desc):
+        return cleaned_desc
+        
+    return None
+
+def clean_bool(checkbox_str: str, options={}):
     '''
     check if string is valid representation of boolean
     
@@ -349,7 +591,7 @@ def clean_bool(checkbox_str: str):
         # If it's not a string and not a boolean, return False
         return False
 
-def clean_depth(depth_str):
+def clean_depth(depth_str, options={}):
     """
     Clean depth field values, converting 'surface' variations to 0 and processing numeric values.
     
@@ -376,10 +618,23 @@ def clean_depth(depth_str):
     depth_str = str(depth_str).strip()
     
     # Check for 'surface' variations (case-insensitive)
-    # Match: surface, surf, surf., Surf, Surf., SURFACE, etc.
+    # Match: surface, surf, surf., Surf, Surf., SURFACE, SURF, etc.
     surface_pattern = r'^surf(ace)?\.?$'
     if re.match(surface_pattern, depth_str, re.IGNORECASE):
         return 0.0
+
+    # Clean the string for keyword matching (case sensitive, trailing period removed)
+    normalized = depth_str.rstrip('.')
+    
+    # Check for ground, gnd, gl variations (case sensitive)
+    zero_keywords = {"Ground", "GL", "ground", "gnd", "gl"}
+    if normalized in zero_keywords:
+        return 0.0
+        
+    # Check for total depth, td, bottom strings (case sensitive)
+    none_keywords = {"Total Depth", "TD", "Bottom", "total depth", "td", "bottom"}
+    if normalized in none_keywords:
+        return None
     
     # Try to parse as a regular float (handles numbers with trailing dashes, etc.)
     result = string_to_float(depth_str)
@@ -394,7 +649,16 @@ def clean_size_string(size_str):
     size_str = str(size_str)
     
     # Remove common suffixes and extra characters
-    size_str = size_str.replace('"', '').replace('″', '').replace('OD', '').strip()
+    for mark in ['"', "'", '’', '‘', '′', '″', '“', '”']:
+        size_str = size_str.replace(mark, '')
+    # Remove OD suffix variants like OD, O.D., or O D.
+    size_str = re.sub(r'(?<![a-z])o\.?\s*d\.?(?![a-z])', '', size_str, flags=re.IGNORECASE)
+    # Remove inch unit words like in, inch, or inches.
+    size_str = re.sub(r'\b(?:inches|inch|in)\.?(?![a-z])', '', size_str, flags=re.IGNORECASE)
+    # Remove suffixes from fraction denominators, e.g. 7/8ths -> 7/8.
+    size_str = re.sub(r'(/\d+)(?:st|nd|rd|ths?|s)\b', r'\1', size_str, flags=re.IGNORECASE)
+    # Collapse whitespace left behind by suffix cleanup.
+    size_str = re.sub(r'\s+', ' ', size_str).strip()
     
     # If multiple sizes are given (comma-separated), take the first one
     if ',' in size_str:
@@ -455,7 +719,7 @@ def separate_fractions(m_str):
         res.append(char)
     return ''.join(res)
 
-def convert_hole_size_to_decimal(size_str):
+def convert_hole_size_to_decimal(size_str, options={}):
     """Convert hole size string to decimal value."""
     if not size_str or pd.isna(size_str):
         return None
@@ -500,8 +764,8 @@ def convert_hole_size_to_decimal(size_str):
         size_str = size_str.replace(m_frac, frac_ascii)
     print(f"DEBUG: After Unicode replacement - size_str='{size_str}', type={type(size_str)}")
     
-    # Remove any remaining whitespace and quotes
-    size_str = size_str.strip().strip('"\'')
+    # Remove any remaining whitespace
+    size_str = size_str.strip()
     
     # Check for common hole sizes first (without spaces)
     common_hole_sizes = {
@@ -551,6 +815,19 @@ def convert_hole_size_to_decimal(size_str):
     except (ValueError, ZeroDivisionError) as e:
         print(f"DEBUG: Error parsing size: {e}")
         return None
+
+CLEANING_FUNCTIONS = {
+    "clean_bool": clean_bool,
+    "string_to_int": string_to_int,
+    "string_to_float": string_to_float,
+    "string_to_date": string_to_date,
+    "clean_date": clean_date,
+    "convert_hole_size_to_decimal": convert_hole_size_to_decimal,
+    "llm_clean": llm_clean,
+    "clean_depth": clean_depth,
+    "newts_clean_units": newts_clean_units,
+    "newts_clean_epa_methods": newts_clean_epa_methods,
+}
 
 
 if __name__ == '__main__':

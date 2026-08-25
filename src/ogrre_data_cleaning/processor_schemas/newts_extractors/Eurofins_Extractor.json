@@ -192,7 +192,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
-        "cleaning_function": null,
+        "cleaning_function": "newts_clean_epa_methods",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
@@ -210,7 +210,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
-        "cleaning_function": null,
+        "cleaning_function": "newts_clean_units",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"
@@ -426,7 +426,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
-        "cleaning_function": null,
+        "cleaning_function": "newts_clean_epa_methods",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": "Yes"

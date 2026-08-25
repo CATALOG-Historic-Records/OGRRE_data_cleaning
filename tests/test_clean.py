@@ -1,6 +1,54 @@
+import builtins
+
 import pytest
 from datetime import datetime
-from ogrre_data_cleaning.clean import string_to_float, string_to_int, clean_date, clean_bool, convert_hole_size_to_decimal, clean_depth
+
+import ogrre_data_cleaning as odc
+from ogrre_data_cleaning import CLEANING_FUNCTIONS
+from ogrre_data_cleaning.clean import (
+    clean_bool,
+    clean_date,
+    clean_depth,
+    convert_hole_size_to_decimal,
+    newts_clean_epa_methods,
+    newts_clean_units,
+    string_to_float,
+    string_to_int,
+)
+
+
+def test_package_exports_cleaning_functions():
+    expected_names = [
+        "clean_bool",
+        "string_to_int",
+        "string_to_float",
+        "string_to_date",
+        "clean_date",
+        "convert_hole_size_to_decimal",
+        "llm_clean",
+        "clean_depth",
+        "newts_clean_units",
+        "newts_clean_epa_methods",
+    ]
+
+    assert list(CLEANING_FUNCTIONS) == expected_names
+    assert odc.CLEANING_FUNCTIONS is CLEANING_FUNCTIONS
+    for name in expected_names:
+        assert CLEANING_FUNCTIONS[name] is getattr(odc, name)
+
+
+def test_llm_clean_requires_llm_extra_when_torch_missing(monkeypatch):
+    real_import = builtins.__import__
+
+    def import_without_torch(name, *args, **kwargs):
+        if name == "torch" or name.startswith("torch."):
+            raise ImportError("No module named 'torch'")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", import_without_torch)
+
+    with pytest.raises(ImportError, match=r"ogrre_data_cleaning\[llm\]"):
+        odc.llm_clean(1.0)
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
@@ -80,6 +128,103 @@ def test_clean_date(input_value, expected):
     assert output == expected
     assert clean_date(output) == expected
 
+@pytest.mark.unit
+@pytest.mark.parametrize("input_value, expected", [
+    # Chemical analysis units
+    ("mg/L", "mg/L"),
+    ("mgl", "mg/L"),
+    ("mg-l", "mg/L"),
+    ("ug/L", "ug/L"),
+    ("µg/l", "ug/L"),
+    ("mg/kg", "mg/kg"),
+    ("mgkg", "mg/kg"),
+    ("ug/kg", "ug/kg"),
+    ("ppm", "ppm"),
+    ("parts per million", "ppm"),
+    ("ppb", "ppb"),
+    ("%", "%"),
+    ("percent", "%"),
+    ("NTU", "NTU"),
+    ("su", "SU"),
+    ("s.u.", "SU"),
+    ("uS/cm", "uS/cm"),
+    ("umhos/cm", "uS/cm"),
+    ("pCi/L", "pCi/L"),
+    # Fuzzy chemical matching
+    ("mg/1", "mg/L"),
+    ("ug/1", "ug/L"),
+    ("pci/1", "pCi/L"),
+    ("ppn", "ppm"),
+    # Fuzzy unit matching test cases (within 2 characters distance)
+    ("mg/L'", "mg/L"),
+    ("vg/l", "mg/L"),
+    ("ppp", "ppm"),
+    # Outside distance threshold of 2 or unknown
+    ("unknown unit", "unknown unit"),
+    ("mg/LLLLL", "mg/LLLLL"),
+    (None, None),
+    (123, None),
+])
+def test_newts_clean_units(input_value, expected):
+    output = newts_clean_units(input_value)
+    assert output == expected
+
+@pytest.mark.unit
+@pytest.mark.parametrize("input_value, expected", [
+    # EPA Methods
+    ("8260", "EPA 8260"),
+    ("8260B", "EPA 8260B"),
+    ("Method 8260B", "Method 8260B"),
+    ("EPA 8260D", "EPA 8260D"),
+    ("EPA Method 8260C", "EPA 8260C"),
+    ("300.0", "EPA 300.0"),
+    ("300.1", "EPA 300.1"),
+    ("TO-15", "TO-15"),
+    ("EPA TO-15", "EPA TO-15"),
+    ("1664A", "EPA 1664A"),
+    ("1664", "EPA 1664"),
+    ("901.1", "EPA 901.1"),
+    ("901.1M", "EPA 901.1M"),
+    ("EPA 901.1", "EPA 901.1"),
+    ("EPA 901.1M", "EPA 901.1M"),
+    ("EPA 200.2", "EPA 200.2"),
+    ("EPA 1311", "EPA 1311"),
+    ("EPA 7.3.4.2", "EPA 7.3.4.2"),
+    ("EPA 7.3.3.2", "EPA 7.3.3.2"),
+    ("EPA 9014", "EPA 9014"),
+    ("EPA 9310", "EPA 9310"),
+    ("EPA 3535A", "EPA 3535A"),
+    ("EPA 9095", "EPA 9095"),
+    ("EPA 245.1", "EPA 245.1"),
+
+    # Standard Methods (SM)
+    ("SM4500-H B", "SM 4500-H B"),
+    ("SM 2540 G", "SM 2540 G"),
+    ("SM2540 G", "SM 2540 G"),
+    ("SM2510 B", "SM 2510 B"),
+    ("SM 5210", "SM 5210"),
+    ("SM 5540", "SM 5540"),
+    
+    # SW-846 Methods (SW)
+    ("SW 846", "SW 846"),
+    ("SW 1311", "SW 1311"),
+    ("SW 8015C", "SW 8015C"),
+    ("SW9045D", "SW 9045D"),
+    ("SW 1311", "SW 1311"),
+    
+    # Technologies / Descriptive Methods
+    ("Purge and Trap", "Purge And Trap"),
+    
+    # Purely numeric codes should assume EPA
+    ("9999", "EPA 9999"),
+    
+    # Edge Cases & Fallbacks
+    (None, None),
+    (123, None),
+])
+def test_newts_clean_epa_methods(input_value, expected):
+    output = newts_clean_epa_methods(input_value)
+    assert output == expected
 
 # ## TODO: should this raise an error?
 # COMMENTED OUT: Pre-existing test failure - clean_date doesn't raise ValueError for invalid dates
@@ -130,8 +275,21 @@ def test_clean_bool(input_value, expected):
     ("5\u215E", 5.875),
     ("8⅝", 8.625),
     ("9⅝", 9.625),
-    ("13⅜", 13.375)
-    # ("8 3/4\" OD", 8.75),  # COMMENTED OUT: Pre-existing bug - can't handle OD suffix, returns None
+    ("13⅜", 13.375),
+    ("8 3/4\" OD", 8.75),
+    ("7 7/8ths", 7.875),
+    ("8 1/2’", 8.5),
+    ("8 1/2'", 8.5),
+    ("8 3/4 od", 8.75),
+    ("8 3/4 O.D.", 8.75),
+    ("8 3/4 in.", 8.75),
+    ("8 3/4 inches", 8.75),
+    ("8 3/4”", 8.75),
+    ("8 3/4′", 8.75),
+    ("7-7/8th", 7.875),
+    ("7-7/8s", 7.875),
+    ("8 1/2’ OD", 8.5),
+    (" 8 3/4\" OD ", 8.75),
 ])
 def test_convert_hole_size_to_decimal(input_value, expected):
     output = convert_hole_size_to_decimal(input_value)
@@ -152,7 +310,7 @@ def test_convert_hole_size_to_decimal(input_value, expected):
 
 @pytest.mark.unit
 @pytest.mark.parametrize("input_value, expected", [
-    # Surface variations - should all convert to 0.0
+    # Surface variations - should all convert to 0.0 (case-insensitive)
     ("surface", 0.0),
     ("Surface", 0.0),
     ("SURFACE", 0.0),
@@ -163,7 +321,22 @@ def test_convert_hole_size_to_decimal(input_value, expected):
     ("Surf.", 0.0),
     ("SURF.", 0.0),
     ("surface.", 0.0),
-    ("  surf  ", 0.0),  # With whitespace
+    ("  surf  ", 0.0),  # With whitespace (stripped to "surf")
+    # Ground/gnd/gl variations - should convert to 0.0 only if matching casing
+    ("ground", 0.0),
+    ("Ground", 0.0),
+    ("GROUND", None),
+    ("gnd", 0.0),
+    ("gnd.", 0.0),
+    ("gl", 0.0),
+    ("GL.", 0.0),
+    # Total depth / td / bottom variations - should all convert to None
+    ("total depth", None),
+    ("Total Depth", None),
+    ("td", None),
+    ("TD.", None),
+    ("bottom", None),
+    ("Bottom", None),
     # Regular numeric depths
     ("0", 0.0),
     ("1234", 1234.0),
@@ -181,12 +354,16 @@ def test_clean_depth(input_value, expected):
     assert output == expected
     assert clean_depth(output) == expected
 
-# if __name__ == '__main__':
-#     test_clean_date()
-#     test_clean_bool()
-#     test_convert_hole_size_to_decimal()
-#     test_string_to_int()
-#     test_string_to_float()
 
-#     test_convert_hole_size_to_decimal_invalid()
-#     test_clean_date_invalid()
+@pytest.mark.unit
+def test_cleaning_functions_accept_options():
+    custom_options = {"test_key": "test_val"}
+    # Call all cleaning functions with options and verify they execute without errors
+    assert string_to_float("12.3", options=custom_options) == 12.3
+    assert string_to_int("12", options=custom_options) == 12
+    assert clean_date("2026-08-07", options=custom_options) is not None
+    assert clean_bool("yes", options=custom_options) is True
+    assert convert_hole_size_to_decimal("8-3/4", options=custom_options) == 8.75
+    assert clean_depth("100", options=custom_options) == 100.0
+    assert newts_clean_units("Feet", options=custom_options) == "Feet"
+    assert newts_clean_epa_methods("EPA 8260B", options=custom_options) == "EPA 8260B"
