@@ -1,5 +1,7 @@
 [
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.788,
         "T1 Fscores": 0.667,
         "T2 Fscores": 0.69,
@@ -18,6 +20,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.938,
         "T1 Fscores": 0.813,
         "T2 Fscores": 0.903,
@@ -36,6 +40,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.97,
         "T1 Fscores": 0.941,
         "T2 Fscores": 0.941,
@@ -54,6 +60,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -72,6 +80,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.938,
         "T1 Fscores": 0.875,
         "T2 Fscores": 0.909,
@@ -90,6 +100,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.97,
         "T1 Fscores": 1.0,
         "T2 Fscores": 1.0,
@@ -108,6 +120,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.97,
         "T1 Fscores": 0.882,
         "T2 Fscores": 0.882,
@@ -126,6 +140,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.938,
         "T1 Fscores": 1.0,
         "T2 Fscores": 0.848,
@@ -144,6 +160,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.786,
         "T1 Fscores": 0.97,
         "T2 Fscores": 0.941,
@@ -162,6 +180,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "well_header",
+        "M Field": null,
         "V1 Fscores": 0.786,
         "T1 Fscores": 0.941,
         "T2 Fscores": 0.882,
@@ -180,6 +200,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.97,
         "T1 Fscores": 0.938,
         "T2 Fscores": 0.882,
@@ -198,6 +220,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.938,
         "T1 Fscores": 0.875,
         "T2 Fscores": 0.848,
@@ -216,6 +240,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.897,
         "T1 Fscores": 0.938,
         "T2 Fscores": 0.897,
@@ -234,6 +260,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -252,6 +280,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -270,6 +300,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -288,6 +320,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -306,6 +340,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -324,6 +360,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 1.0,
         "T2 Fscores": 0.968,
@@ -342,6 +380,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -360,6 +400,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.897,
         "T1 Fscores": 0.774,
         "T2 Fscores": 0.8,
@@ -378,6 +420,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.848,
         "T1 Fscores": 0.774,
         "T2 Fscores": 0.733,
@@ -396,6 +440,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 0.923,
         "T2 Fscores": 0.923,
@@ -414,6 +460,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 1.0,
         "T1 Fscores": 0.727,
         "T2 Fscores": 0.8,
@@ -432,6 +480,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.525,
         "T1 Fscores": 0.339,
         "T2 Fscores": 0.267,
@@ -450,6 +500,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.524,
         "T1 Fscores": 0.358,
         "T2 Fscores": 0.308,
@@ -468,6 +520,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.75,
         "T1 Fscores": 0.437,
         "T2 Fscores": 0.241,
@@ -486,6 +540,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -504,6 +560,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -522,6 +580,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.314,
         "T1 Fscores": 0.187,
         "T2 Fscores": 0.229,
@@ -540,6 +600,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.747,
         "T1 Fscores": 0.356,
         "T2 Fscores": 0.347,
@@ -558,6 +620,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -576,6 +640,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -594,6 +660,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.6,
         "T1 Fscores": 0.443,
         "T2 Fscores": 0.44,
@@ -612,6 +680,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.6,
         "T1 Fscores": 0.389,
         "T2 Fscores": 0.371,
@@ -630,6 +700,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": 0.608,
         "T1 Fscores": 0.5,
         "T2 Fscores": 0.528,
@@ -648,6 +720,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "casings",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -666,6 +740,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -684,6 +760,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -702,6 +780,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -720,6 +800,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -738,6 +820,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": 0.563,
         "T1 Fscores": 0.66,
         "T2 Fscores": 0.497,
@@ -756,6 +840,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": 0.103,
         "T1 Fscores": 0.609,
         "T2 Fscores": 0.494,
@@ -774,6 +860,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": 0.806,
         "T1 Fscores": 0.702,
         "T2 Fscores": 0.5,
@@ -792,6 +880,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "completions",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -810,6 +900,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "formations",
+        "M Field": null,
         "V1 Fscores": 0.88,
         "T1 Fscores": 0.6,
         "T2 Fscores": 0.55,
@@ -828,6 +920,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "formations",
+        "M Field": null,
         "V1 Fscores": 0.942,
         "T1 Fscores": 0.735,
         "T2 Fscores": 0.707,
@@ -846,6 +940,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "formations",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -864,6 +960,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "formations",
+        "M Field": null,
         "V1 Fscores": 0.56,
         "T1 Fscores": 0.147,
         "T2 Fscores": 0.08,
@@ -882,6 +980,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "formations",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -900,6 +1000,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.525,
         "T1 Fscores": 0.541,
         "T2 Fscores": 0.587,
@@ -918,6 +1020,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.697,
         "T1 Fscores": 0.533,
         "T2 Fscores": 0.614,
@@ -936,6 +1040,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": 0.42,
         "T1 Fscores": 0.547,
         "T2 Fscores": 0.563,
@@ -954,6 +1060,8 @@
         "model_enabled": "Yes"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -972,6 +1080,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
@@ -990,6 +1100,8 @@
         "model_enabled": "No"
     },
     {
+        "M Table": "sidetracks",
+        "M Field": null,
         "V1 Fscores": null,
         "T1 Fscores": null,
         "T2 Fscores": null,
