@@ -436,7 +436,14 @@ def newts_clean_units(s: str, options={}) -> str | None:
         
         # pCi/L
         "pci/l": "pCi/L",
-        "pci / l": "pCi/L"
+        "pci / l": "pCi/L",
+
+        # pCi/g
+        "pci/g": "pCi/g",
+        "pci / g": "pCi/g",
+        "pci/G": "pCi/g",
+        "PCI/g": "pCi/g",
+        "PCI/G": "pCi/g",
     }
 
     # mg/l, mg/L, mg/kg, ug/L, ug/l, umhos/cm, mg CaCO3/L, pCi/L, pCi/g,
