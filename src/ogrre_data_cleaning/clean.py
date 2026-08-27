@@ -299,10 +299,17 @@ def clean_date(date_str: str, options={}) ->datetime | None:
     # "Month_str DD,YYYY" -> "Month_str DD, YYYY"
     date_str = date_str.replace(",", ", ")          # in text entries, make sure day and year are ", " separated (comma and space)
 
+    d1 = datetime(2000, 1, 1)
+    d2 = datetime(2000, 1, 15)
+
     try:
-        res = date_parser.parse(date_str,)
+        res1 = date_parser.parse(date_str, default=d1)
+        res2 = date_parser.parse(date_str, default=d2)
     except:
         return None 
+
+    has_day = (res1.day == res2.day)
+    res = res1
     
     m_year = res.year
 
@@ -310,7 +317,8 @@ def clean_date(date_str: str, options={}) ->datetime | None:
     if m_year > datetime.now().year:
         res = res.replace(year=m_year-100)
 
-    return res.strftime('%m/%d/%Y')
+    fmt = '%m/%d/%Y' if has_day else '%m/%Y'
+    return res.strftime(fmt)
 
 def newts_clean_lab_id(s: str, options={}) -> str | None:
     """
