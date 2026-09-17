@@ -152,7 +152,7 @@
         "page_order_sort": 9.0,
         "name": "lab_id",
         "alias": null,
-        "google_data_type": "Parent",
+        "google_data_type": "Plain text",
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
