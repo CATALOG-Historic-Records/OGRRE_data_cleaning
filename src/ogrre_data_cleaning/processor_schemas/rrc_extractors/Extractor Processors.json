@@ -11,5 +11,44 @@
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
         "Processor ID": "dd6546dce9424f9",
         "Model ID": "dc2cd5788d240aac"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Texas_RRC_Page1B",
+        "Model Name": "V1_5-03",
+        "F1 Score": 0.897,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 36.0,
+        "Testing Documents": 39.0,
+        "Date Trained": 1788825600000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "12f5ed5429723075",
+        "Model ID": "f6344a931329dcab"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Texas_RRC_Page3",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.998,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 64.0,
+        "Testing Documents": 18.0,
+        "Date Trained": 1788912000000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "c2587eb8b0d58cd3",
+        "Model ID": "70e406942b57558"
+    },
+    {
+        "Processor Type": "Extractor",
+        "Processor Name": "Texas_RRC_Page2",
+        "Model Name": "V1_5-01",
+        "F1 Score": 0.936,
+        "Primary Model in Processor": "primary",
+        "Training Documents": 40.0,
+        "Testing Documents": 27.0,
+        "Date Trained": 1789430400000,
+        "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
+        "Processor ID": "54c36a4c4773394a",
+        "Model ID": "e10eb6c81ce1d0d5"
     }
 ]

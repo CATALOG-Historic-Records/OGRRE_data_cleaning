@@ -2,7 +2,8 @@
     {
         "Units": null,
         "Google Description Prompt": "The operating company submitting the report.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 1.0,
@@ -20,7 +21,8 @@
     {
         "Units": null,
         "Google Description Prompt": "The month and year for the report.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 2.0,
@@ -38,7 +40,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Street or box address of the operator.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 3.0,
@@ -56,7 +59,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Registration number.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 4.0,
@@ -74,7 +78,8 @@
     {
         "Units": null,
         "Google Description Prompt": "P-5 number.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 5.0,
@@ -92,7 +97,8 @@
     {
         "Units": null,
         "Google Description Prompt": "City of the operator.",
-        "Fscores": 0.967,
+        "V1_5-03 Fscores": 0.967,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 6.0,
@@ -110,7 +116,8 @@
     {
         "Units": null,
         "Google Description Prompt": "State of the operator.",
-        "Fscores": 0.983,
+        "V1_5-03 Fscores": 0.983,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 7.0,
@@ -128,7 +135,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Zip Code of the operator.",
-        "Fscores": 0.982,
+        "V1_5-03 Fscores": 0.982,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 8.0,
@@ -146,7 +154,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Railroad Commission (RRC) District.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 9.0,
@@ -164,7 +173,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Indicates if the report is a corrected report.",
-        "Fscores": 0.182,
+        "V1_5-03 Fscores": 0.182,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 10.0,
@@ -182,7 +192,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "1. Balance Available for Movement (Beginning of Month) in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 11.0,
@@ -200,7 +211,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "2. Frozen Stock in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 12.0,
@@ -218,7 +230,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "3. Liquid Hydrocarbons in Line in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 13.0,
@@ -236,7 +249,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "4. Total Stock (Beginning of Month) in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 14.0,
@@ -254,7 +268,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "5. Receipts from Leases (Crude) in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 15.0,
@@ -272,7 +287,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "6. Receipts from Leases (Condensate on Form PR) in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 16.0,
@@ -290,7 +306,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "7. Total Receipts from Leases in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 17.0,
@@ -308,7 +325,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Rows details receipts from other sources.",
-        "Fscores": 0.979,
+        "V1_5-03 Fscores": 0.979,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 18.0,
@@ -326,7 +344,8 @@
     {
         "Units": null,
         "Google Description Prompt": "8. Received from entity name.",
-        "Fscores": 0.981,
+        "V1_5-03 Fscores": 0.981,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 19.0,
@@ -344,7 +363,8 @@
     {
         "Units": null,
         "Google Description Prompt": "9. Facility Name.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 20.0,
@@ -362,7 +382,8 @@
     {
         "Units": null,
         "Google Description Prompt": "10. RRC Identifier.",
-        "Fscores": 0.94,
+        "V1_5-03 Fscores": 0.94,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 21.0,
@@ -380,7 +401,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "11. Actual Receipts in barrels.",
-        "Fscores": 0.991,
+        "V1_5-03 Fscores": 0.991,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 22.0,
@@ -398,7 +420,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "12. Total of receipts from other sources in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 23.0,
@@ -416,7 +439,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "13. Total All Receipts in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 24.0,
@@ -434,7 +458,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "14. Stock First of Period Plus Receipts in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 25.0,
@@ -452,7 +477,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Rows detailing deliveries.",
-        "Fscores": 0.991,
+        "V1_5-03 Fscores": 0.991,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 26.0,
@@ -470,7 +496,8 @@
     {
         "Units": null,
         "Google Description Prompt": "15. Delivered To entity name.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 27.0,
@@ -488,7 +515,8 @@
     {
         "Units": null,
         "Google Description Prompt": "16. Facility Name.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 28.0,
@@ -506,7 +534,8 @@
     {
         "Units": null,
         "Google Description Prompt": "17. RRC Identifier.",
-        "Fscores": 0.976,
+        "V1_5-03 Fscores": 0.976,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 29.0,
@@ -524,7 +553,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "18. Actual Deliveries in barrels.",
-        "Fscores": 0.984,
+        "V1_5-03 Fscores": 0.984,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 30.0,
@@ -542,7 +572,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "19. Total of actual deliveries in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 31.0,
@@ -560,7 +591,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "20. Overage in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 32.0,
@@ -578,7 +610,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "21. Shortage in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 33.0,
@@ -596,7 +629,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "22. Total Deliveries in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 34.0,
@@ -614,7 +648,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "23. Total Stock End of Month in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 35.0,
@@ -632,7 +667,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "24. Frozen Stock in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 36.0,
@@ -650,7 +686,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "25. Liquid Hydrocarbons in Line in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 37.0,
@@ -668,7 +705,8 @@
     {
         "Units": "Barrels",
         "Google Description Prompt": "26. Balance Available for Movement (End of Month) in barrels.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 38.0,
@@ -686,7 +724,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Name written for the signature.",
-        "Fscores": 0.88,
+        "V1_5-03 Fscores": 0.88,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 39.0,
@@ -704,7 +743,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Date the report was signed.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 40.0,
@@ -722,7 +762,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Title of the person signing the report.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 41.0,
@@ -740,7 +781,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Area code of the telephone number for the person signing the report.",
-        "Fscores": 0.667,
+        "V1_5-03 Fscores": 0.667,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 42.0,
@@ -758,7 +800,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Telephone number (excluding the area code) for the person signing the report.",
-        "Fscores": 0.949,
+        "V1_5-03 Fscores": 0.949,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 43.0,
@@ -776,7 +819,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Email address of the person signing the report.",
-        "Fscores": 1.0,
+        "V1_5-03 Fscores": 1.0,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 44.0,
@@ -794,7 +838,8 @@
     {
         "Units": null,
         "Google Description Prompt": "Date received from the 'Received RRC of Texas' stamp/rectangle. Blank if not present.",
-        "Fscores": 0.952,
+        "V1_5-03 Fscores": 0.952,
+        "V1_5-02 Fscores": null,
         "google_processor_name": "Texas_RRC_Front_Page",
         "document_type": "Texas RRC T-1 Form - Page 1",
         "page_order_sort": 45.0,
