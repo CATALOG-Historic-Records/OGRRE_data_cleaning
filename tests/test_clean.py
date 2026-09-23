@@ -14,6 +14,7 @@ from ogrre_data_cleaning.clean import (
     newts_clean_units,
     string_to_float,
     string_to_int,
+    texas_rrc_clean_lease_field_or_operator,
 )
 
 
@@ -29,6 +30,7 @@ def test_package_exports_cleaning_functions():
         "clean_depth",
         "newts_clean_units",
         "newts_clean_epa_methods",
+        "texas_rrc_clean_lease_field_or_operator",
     ]
 
     assert list(CLEANING_FUNCTIONS) == expected_names
@@ -378,3 +380,34 @@ def test_cleaning_functions_accept_options():
     assert clean_depth("100", options=custom_options) == 100.0
     assert newts_clean_units("Feet", options=custom_options) == "Feet"
     assert newts_clean_epa_methods("EPA 8260B", options=custom_options) == "EPA 8260B"
+    assert (
+        texas_rrc_clean_lease_field_or_operator("Test Lease", options=custom_options)
+        == "Test Lease"
+    )
+
+
+@pytest.mark.unit
+def test_texas_rrc_clean_lease_field_or_operator():
+    # Non-null input returns non-null input
+    assert texas_rrc_clean_lease_field_or_operator("LEASE A") == "LEASE A"
+
+    # Null input with no saved options returns None
+    assert texas_rrc_clean_lease_field_or_operator(None, options={}) is None
+    assert texas_rrc_clean_lease_field_or_operator("", options={}) is None
+
+    # Null input with saved lease_field in options returns saved lease_field
+    opts_field = {"lease_field": "SAVED LEASE FIELD", "attribute_key": "lease_field"}
+    assert texas_rrc_clean_lease_field_or_operator(None, options=opts_field) == "SAVED LEASE FIELD"
+    assert texas_rrc_clean_lease_field_or_operator("", options=opts_field) == "SAVED LEASE FIELD"
+
+    # Null input with saved lease_operator in options returns saved lease_operator
+    opts_operator = {"lease_operator": "SAVED OPERATOR", "attribute_key": "lease_operator"}
+    assert (
+        texas_rrc_clean_lease_field_or_operator(None, options=opts_operator)
+        == "SAVED OPERATOR"
+    )
+    assert (
+        texas_rrc_clean_lease_field_or_operator("", options=opts_operator)
+        == "SAVED OPERATOR"
+    )
+
