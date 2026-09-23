@@ -84,7 +84,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
-        "cleaning_function": null,
+        "cleaning_function": "texas_rrc_clean_lease_field_or_operator",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": null
@@ -120,7 +120,7 @@
         "occurrence": "Optional once",
         "grouping": null,
         "database_data_type": "str",
-        "cleaning_function": null,
+        "cleaning_function": "texas_rrc_clean_lease_field_or_operator",
         "accepted_range": null,
         "field_specific_notes": null,
         "model_enabled": null
