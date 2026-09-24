@@ -831,6 +831,31 @@ def convert_hole_size_to_decimal(size_str, options={}):
         print(f"DEBUG: Error parsing size: {e}")
         return None
 
+def texas_rrc_clean_lease_field_or_operator(s, options={}):
+    """
+    Forward-fills values for 'lease_field' or 'lease_operator'.
+    If input 's' is not null, returns 's'.
+    If 's' is null, returns whatever previous value is saved in 'lease_field' or
+    'lease_operator' key in options context. Returns None if no value is saved.
+    """
+    if s is not None and s != "":
+        return s
+
+    if not isinstance(options, dict):
+        return None
+
+    attribute_key = options.get("attribute_key") or options.get("key")
+    if attribute_key in ["lease_field", "lease_operator"]:
+        return options.get(attribute_key)
+
+    if options.get("lease_field") is not None:
+        return options.get("lease_field")
+    if options.get("lease_operator") is not None:
+        return options.get("lease_operator")
+
+    return None
+
+
 CLEANING_FUNCTIONS = {
     "clean_bool": clean_bool,
     "string_to_int": string_to_int,
@@ -842,7 +867,9 @@ CLEANING_FUNCTIONS = {
     "clean_depth": clean_depth,
     "newts_clean_units": newts_clean_units,
     "newts_clean_epa_methods": newts_clean_epa_methods,
+    "texas_rrc_clean_lease_field_or_operator": texas_rrc_clean_lease_field_or_operator,
 }
+
 
 
 if __name__ == '__main__':

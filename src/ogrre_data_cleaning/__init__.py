@@ -10,6 +10,7 @@ from .clean import (
     string_to_date,
     string_to_float,
     string_to_int,
+    texas_rrc_clean_lease_field_or_operator,
 )
 
 __version__ = "0.1.0"
@@ -25,4 +26,5 @@ __all__ = [
     "string_to_date",
     "string_to_float",
     "string_to_int",
+    "texas_rrc_clean_lease_field_or_operator",
 ]
