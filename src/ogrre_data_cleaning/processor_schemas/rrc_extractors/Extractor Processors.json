@@ -40,15 +40,15 @@
     },
     {
         "Processor Type": "Extractor",
-        "Processor Name": "Texas_RRC_Page2",
-        "Model Name": "V1_5-01",
-        "F1 Score": 0.936,
+        "Processor Name": "Texas_RRC_Page_2",
+        "Model Name": "V1_5-02",
+        "F1 Score": 0.939,
         "Primary Model in Processor": "primary",
-        "Training Documents": 40.0,
-        "Testing Documents": 27.0,
-        "Date Trained": 1789430400000,
+        "Training Documents": 37.0,
+        "Testing Documents": 33.0,
+        "Date Trained": 1790726400000,
         "Foundation Model": "pretrained-foundation-model-v1.5-2025-05-05",
-        "Processor ID": "54c36a4c4773394a",
-        "Model ID": "e10eb6c81ce1d0d5"
+        "Processor ID": "49bae16b66920f3e",
+        "Model ID": "703d3cc215c5bf02"
     }
 ]
