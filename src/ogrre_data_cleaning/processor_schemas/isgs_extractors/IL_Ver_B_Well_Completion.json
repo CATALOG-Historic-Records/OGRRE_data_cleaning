@@ -1093,7 +1093,7 @@
         "google_processor_name": "IL_Ver_B_Well_Completion",
         "document_type": "Well Completion Report Types B, C, D, E",
         "page_order_sort": 46.0,
-        "name": "Type_Of_Logs:Type_Of_Log",
+        "name": "Type_Of_Logs::Type_Of_Log",
         "google_data_type": "Plain text",
         "occurrence": "Optional once",
         "grouping": null,
