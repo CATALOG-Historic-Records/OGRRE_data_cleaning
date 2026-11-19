@@ -43,9 +43,15 @@ def Excel_to_Json(excel_file_path, Test_Sheet_Names = False, Organization = None
     
     Trained_Models_df = pd.read_excel(excel_file_path, sheet_name="Trained Models")
     Extractors = Trained_Models_df[(Trained_Models_df["Processor Type"] == "Extractor")*(Trained_Models_df["Primary Model in Processor"] == "primary")]
+    All_Splitters = Trained_Models_df[Trained_Models_df["Processor Type"] == "Splitter"]
+    Splitters = All_Splitters[All_Splitters["Primary Model in Processor"] == "primary"].copy()
+    if Splitters.empty and not All_Splitters.empty:
+        Splitters = All_Splitters[All_Splitters["Model ID"].notna()].copy()
 
     if Test_Sheet_Names:
         for processor in Extractors["Processor Name"]:
+            print(np.any(processor in sheet_names))
+        for processor in Splitters["Processor Name"]:
             print(np.any(processor in sheet_names))
 
     key_replacements = {
@@ -79,6 +85,47 @@ def Excel_to_Json(excel_file_path, Test_Sheet_Names = False, Organization = None
         Extractors.loc[Extractors['Processor Name'] == processor,'Processor Name'] = processor_name_replacements[processor]
     Extractors = Extractors.astype({'Training Documents': 'float64','Testing Documents': 'float64'})
     write_json(Dataframe = Extractors.reset_index()[Extractors.columns], Filepath = f"{extractors_dir}/Extractor Processors.json", key_replacements=key_replacements)
+
+    if not Splitters.empty:
+        for processor in processor_name_replacements:
+            Splitters.loc[Splitters['Processor Name'] == processor, 'Processor Name'] = processor_name_replacements[processor]
+        Splitters = Splitters.astype({'Training Documents': 'float64', 'Testing Documents': 'float64'})
+        splitter_records = json.loads(Splitters.reset_index()[Splitters.columns].to_json(orient="records"))
+        for item in splitter_records:
+            for key in list(item.keys()):
+                if key in key_replacements:
+                    item[key_replacements[key]] = item.pop(key)
+            proc_name = item.get("Processor Name")
+            sheet_key = None
+            if proc_name in sheet_names:
+                sheet_key = proc_name
+            elif proc_name:
+                sheet_key = next(
+                    (
+                        sh for sh in sheet_names
+                        if sh == proc_name[:31] or sh.replace("_", "") == proc_name.replace("_", "")
+                    ),
+                    None,
+                )
+            if sheet_key:
+                try:
+                    splitter_df = pd.read_excel(excel_file_path, sheet_name=sheet_key)
+                    if "Name" in splitter_df.columns:
+                        label_rows = splitter_df[splitter_df["Name"].notna()]
+                        label_rows = label_rows[
+                            label_rows["Name"].astype(str).str.strip() != "Document Type Schema Name"
+                        ]
+                        if "Model Enabled" in label_rows.columns:
+                            label_rows = label_rows[
+                                ~label_rows["Model Enabled"].astype(str).str.strip().str.lower().isin(["no", "false"])
+                            ]
+                        item["processor_labels"] = [
+                            str(val).strip() for val in label_rows["Name"].tolist() if str(val).strip()
+                        ]
+                except Exception:
+                    pass
+        with open(f"{extractors_dir}/Splitter Processors.json", "w", encoding="utf-8") as json_file:
+            json.dump(splitter_records, json_file, indent=4, default=str)
     
     for processor in Extractors["Processor Name"]:
         if processor in processor_name_replacements.values():
