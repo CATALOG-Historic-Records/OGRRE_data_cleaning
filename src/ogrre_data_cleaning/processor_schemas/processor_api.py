@@ -93,4 +93,70 @@ def get_processor_by_name(collaborator: str = "isgs", processor_name: str = None
         print(f"unable to find attributes for {collaborator} named: {processor_name}")
 
     return processor_data
-    
+
+
+def get_splitter_list(collaborator: str):
+    """Get list of splitter processors for a given collaborator.
+
+        Args:
+            collaborator: eg. rrc
+
+        Returns:
+            List of splitter processors or None
+    """
+    try:
+        with importlib.resources.open_text(__package__ + f".{collaborator}_extractors", "Splitter Processors.json") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"unable to find splitter processor list for collaborator: {collaborator}")
+        return None
+
+
+def get_splitter_by_id(collaborator: str, processor_id: str):
+    """Get splitter processor data for given processor id.
+
+        Args:
+            collaborator: str = rrc
+            processor_id: str
+
+        Returns:
+            Dict containing splitter processor data or None
+    """
+    if not processor_id:
+        return None
+
+    splitter_data = get_splitter_list(collaborator)
+    if not splitter_data:
+        return None
+
+    for splitter in splitter_data:
+        if splitter.get("Processor ID") == processor_id:
+            return splitter
+
+    print(f"unable to find splitter processor data for {collaborator} id: {processor_id}")
+    return None
+
+
+def get_splitter_by_name(collaborator: str = "rrc", processor_name: str = None):
+    """Get splitter processor data for given processor name.
+
+        Args:
+            collaborator: str = rrc
+            processor_name: str
+
+        Returns:
+            Dict containing splitter processor data or None
+    """
+    if not processor_name:
+        return None
+
+    splitter_data = get_splitter_list(collaborator)
+    if not splitter_data:
+        return None
+
+    for splitter in splitter_data:
+        if splitter.get("Processor Name") == processor_name:
+            return splitter
+
+    print(f"unable to find splitter processor data for {collaborator} named: {processor_name}")
+    return None
