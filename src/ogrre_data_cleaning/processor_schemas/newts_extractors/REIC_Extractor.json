@@ -245,7 +245,7 @@
         "google_data_type": "Parent",
         "occurrence": "Optional multiple",
         "grouping": null,
-        "database_data_type": "bool",
+        "database_data_type": "Table",
         "cleaning_function": null,
         "accepted_range": null,
         "field_specific_notes": null,

@@ -292,7 +292,7 @@
         "google_processor_name": "TestAmerica_Extractor",
         "document_type": "ClientSampleResults",
         "page_order_sort": 16.0,
-        "name": "sample::test_parameter::limits",
+        "name": "sample::parameter_test::limits",
         "alias": null,
         "google_data_type": "Plain text",
         "occurrence": "Optional once",
